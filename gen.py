@@ -118,7 +118,15 @@ class xvecx(struct):
         self.put(f"{prefix[t]}vec{x} cos(const {prefix[t]}vec{x}&);")
 
 import sys
-print("#ifdef __cplusplus")
+print("""
+#ifdef __cplusplus
+#include <type_traits>
+#include <concepts>
+template<typename T>
+concept float_like = requires(T a) {
+    std::is_floating_point_v<T>;
+};
+""")
 print(xvecx(2, "float"), file=sys.stderr)
 print(xvecx(2, "float"))
 print(xvecx(3, "float"))
@@ -136,13 +144,14 @@ struct sampler2DShadow {};
 struct mat4 {};
 int floor(float);
 float fract(float);
-template<typename T> T pow(T, T);
+template<float_like T, float_like V> float pow(T, V);
 float mod(float, float);
 vec4 operator*(mat4, vec4);
-template<typename T> T min(T, T);
-template<typename T> T max(T, T);
-template<typename T> T step(T, T);
-template<typename T, typename V> T mix(T, T, V);
+template<float_like T, float_like V> T min(T, V);
+template<float_like T, float_like V> T max(T, V);
+template<float_like T, float_like V> T step(T, V);
+template<typename T, float_like P> T mix(T, T, P);
+float mix(float, double, double);
 template<typename T> T sqrt(T);
 template<typename T> T abs(T);
 template<typename T> T normalize(T);
