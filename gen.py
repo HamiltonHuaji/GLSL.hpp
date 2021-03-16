@@ -51,14 +51,14 @@ class xvecx(struct):
             self.add(f"{prefix[t]}vec{x}(const ivec{x}&);")
             self.add(f"{prefix[t]}vec{x}& operator=(const ivec{x}&);")
         if x == 3:
-            self.add(f"{prefix[t]}vec{x}({prefix[t]}vec{x-1}, {t});")
-            self.add(f"{prefix[t]}vec{x}({t}, {prefix[t]}vec{x-1});")
+            self.add(f"explicit {prefix[t]}vec{x}({prefix[t]}vec{x-1}, {t});")
+            self.add(f"explicit {prefix[t]}vec{x}({t}, {prefix[t]}vec{x-1});")
         if x == 4:
-            self.add(f"{prefix[t]}vec{x}({prefix[t]}vec{x-1}, {t});")
-            self.add(f"{prefix[t]}vec{x}({t}, {prefix[t]}vec{x-1});")
-            self.add(f"{prefix[t]}vec{x}({prefix[t]}vec{x-2}, {t}, {t});")
-            self.add(f"{prefix[t]}vec{x}({t}, {prefix[t]}vec{x-2}, {t});")
-            self.add(f"{prefix[t]}vec{x}({t}, {t}, {prefix[t]}vec{x-2});")
+            self.add(f"explicit {prefix[t]}vec{x}({prefix[t]}vec{x-1}, {t});")
+            self.add(f"explicit {prefix[t]}vec{x}({t}, {prefix[t]}vec{x-1});")
+            self.add(f"explicit {prefix[t]}vec{x}({prefix[t]}vec{x-2}, {t}, {t});")
+            self.add(f"explicit {prefix[t]}vec{x}({t}, {prefix[t]}vec{x-2}, {t});")
+            self.add(f"explicit {prefix[t]}vec{x}({t}, {t}, {prefix[t]}vec{x-2});")
         # operator[]
         self.add(f"{t} operator[](const int);")
         # operator=
@@ -117,63 +117,9 @@ class xvecx(struct):
         self.put(f"{prefix[t]}vec{x} sin(const {prefix[t]}vec{x}&);")
         self.put(f"{prefix[t]}vec{x} cos(const {prefix[t]}vec{x}&);")
 
-import sys
-print("""
-#ifdef __cplusplus
-#include <type_traits>
-#include <concepts>
-template<typename T>
-concept float_like = requires(T a) {
-    std::is_floating_point_v<T>;
-};
-""")
-print(xvecx(2, "float"), file=sys.stderr)
-print(xvecx(2, "float"))
-print(xvecx(3, "float"))
-print(xvecx(4, "float"))
-print(xvecx(2, "int"))
-print(xvecx(3, "int"))
-print(xvecx(4, "int"))
-print('''
-#define uniform
-#define in
-#define out
-#define inout
-struct sampler2D {};
-struct sampler2DShadow {};
-struct mat4 {};
-int floor(float);
-float fract(float);
-template<float_like T, float_like V> float pow(T, V);
-float mod(float, float);
-vec4 operator*(mat4, vec4);
-template<float_like T, float_like V> T min(T, V);
-template<float_like T, float_like V> T max(T, V);
-template<float_like T, float_like V> T step(T, V);
-template<typename T, float_like P> T mix(T, T, P);
-float mix(float, double, double);
-template<typename T> T sqrt(T);
-template<typename T> T abs(T);
-template<typename T> T normalize(T);
-template<typename T> T sign(T);
-template<typename T> T clamp(T, T, T);
-float length(vec2);
-float length(vec3);
-float sin(float);
-float cos(float);
-float exp2(float);
-vec3 cross(vec3, vec3);
-float dot(vec3, vec3);
-float dot(vec2, vec2);
-float distance(vec3, vec3);
-vec4 texture2D(sampler2D, vec2);
-vec4 texture2D(sampler2DShadow, vec2);
-vec4 texture2DLod(sampler2D, vec2, int);
-vec4 texture2DLod(sampler2DShadow, vec2, int);
-vec4 shadow2DLod(sampler2D, vec3, int);
-vec4 shadow2DLod(sampler2DShadow, vec3, int);
-vec4 gl_FragData[8];
-vec4 gl_FragColor;
-vec4 gl_Position;
-#endif
-''')
+import sys, pystache
+with open("template.hpp", newline="\n", encoding="utf-8") as f:
+    template = f.read()
+def_xvecx = repr(xvecx(2, "float"))+repr(xvecx(3, "float"))+repr(xvecx(4, "float"))+repr(xvecx(2, "int"))+repr(xvecx(3, "int"))+repr(xvecx(4, "int"))
+with open("glsl.hpp", "w", newline="\n", encoding="utf-8") as f:
+    f.write(pystache.render(template, {'def_xvecx':def_xvecx}))
