@@ -18,6 +18,7 @@ class xvecx(struct):
         xyzw = ["x", "y", "z", "w"]
         rgba = ["r", "g", "b", "a"]
         stuv = ["s", "t", "u", "v"]
+        self.add(f"static constexpr int dim={x};")
         for _ in range(x):
             self.add(f"{t} {xyzw[_]};")
             self.add(f"{t} {rgba[_]};")
