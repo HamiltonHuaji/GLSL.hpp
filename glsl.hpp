@@ -2,7 +2,12 @@
 #ifndef GLSLCPP
 #define GLSLCPP
 #ifdef __cplusplus
-
+struct vec2;
+struct vec3;
+struct vec4;
+struct ivec2;
+struct ivec3;
+struct ivec4;
 // vecx
 // clang-format off
 struct vec2 {
@@ -69,13 +74,7 @@ vec2 operator/(const vec2&, const int&  );
 vec2 refract(const vec2&, const vec2&, float);
 vec2 dFdx(const vec2&);
 vec2 dFdy(const vec2&);
-ivec2 floor(const vec2&);
-vec2 fract(const vec2&);
-vec2 exp2(const vec2&);
-vec2 clamp(const vec2&, const vec2&, const vec2&);
-vec2 clamp(const vec2&, const float&, const float&);
-vec2 sin(const vec2&);
-vec2 cos(const vec2&);struct vec3 {
+struct vec3 {
     static constexpr int dim=3;
     float x;
     float r;
@@ -199,8 +198,8 @@ vec2 cos(const vec2&);struct vec3 {
     vec3(float, float, float);
     vec3(const ivec3&);
     vec3& operator=(const ivec3&);
-    explicit vec3(vec2, float);
-    explicit vec3(float, vec2);
+    vec3(vec2, float);
+    vec3(float, vec2);
     float operator[](const int);
     vec3& operator=(const vec3&);
     template<typename T> vec3& operator+=(const T&);
@@ -240,13 +239,7 @@ vec3 operator/(const vec3&, const int&  );
 vec3 refract(const vec3&, const vec3&, float);
 vec3 dFdx(const vec3&);
 vec3 dFdy(const vec3&);
-ivec3 floor(const vec3&);
-vec3 fract(const vec3&);
-vec3 exp2(const vec3&);
-vec3 clamp(const vec3&, const vec3&, const vec3&);
-vec3 clamp(const vec3&, const float&, const float&);
-vec3 sin(const vec3&);
-vec3 cos(const vec3&);struct vec4 {
+struct vec4 {
     static constexpr int dim=4;
     float x;
     float r;
@@ -1273,11 +1266,11 @@ vec3 cos(const vec3&);struct vec4 {
     vec4(float, float, float, float);
     vec4(const ivec4&);
     vec4& operator=(const ivec4&);
-    explicit vec4(vec3, float);
-    explicit vec4(float, vec3);
-    explicit vec4(vec2, float, float);
-    explicit vec4(float, vec2, float);
-    explicit vec4(float, float, vec2);
+    vec4(vec3, float);
+    vec4(float, vec3);
+    vec4(vec2, float, float);
+    vec4(float, vec2, float);
+    vec4(float, float, vec2);
     float operator[](const int);
     vec4& operator=(const vec4&);
     template<typename T> vec4& operator+=(const T&);
@@ -1317,13 +1310,7 @@ vec4 operator/(const vec4&, const int&  );
 vec4 refract(const vec4&, const vec4&, float);
 vec4 dFdx(const vec4&);
 vec4 dFdy(const vec4&);
-ivec4 floor(const vec4&);
-vec4 fract(const vec4&);
-vec4 exp2(const vec4&);
-vec4 clamp(const vec4&, const vec4&, const vec4&);
-vec4 clamp(const vec4&, const float&, const float&);
-vec4 sin(const vec4&);
-vec4 cos(const vec4&);struct ivec2 {
+struct ivec2 {
     static constexpr int dim=2;
     int x;
     int r;
@@ -1385,11 +1372,7 @@ ivec2 operator/(const ivec2&, const int&  );
 ivec2 refract(const ivec2&, const ivec2&, float);
 ivec2 dFdx(const ivec2&);
 ivec2 dFdy(const ivec2&);
-ivec2 exp2(const ivec2&);
-ivec2 clamp(const ivec2&, const ivec2&, const ivec2&);
-ivec2 clamp(const ivec2&, const float&, const float&);
-ivec2 sin(const ivec2&);
-ivec2 cos(const ivec2&);struct ivec3 {
+struct ivec3 {
     static constexpr int dim=3;
     int x;
     int r;
@@ -1511,8 +1494,8 @@ ivec2 cos(const ivec2&);struct ivec3 {
     ivec3();
     explicit ivec3(int);
     ivec3(int, int, int);
-    explicit ivec3(ivec2, int);
-    explicit ivec3(int, ivec2);
+    ivec3(ivec2, int);
+    ivec3(int, ivec2);
     int operator[](const int);
     ivec3& operator=(const ivec3&);
     template<typename T> ivec3& operator+=(const T&);
@@ -1552,11 +1535,7 @@ ivec3 operator/(const ivec3&, const int&  );
 ivec3 refract(const ivec3&, const ivec3&, float);
 ivec3 dFdx(const ivec3&);
 ivec3 dFdy(const ivec3&);
-ivec3 exp2(const ivec3&);
-ivec3 clamp(const ivec3&, const ivec3&, const ivec3&);
-ivec3 clamp(const ivec3&, const float&, const float&);
-ivec3 sin(const ivec3&);
-ivec3 cos(const ivec3&);struct ivec4 {
+struct ivec4 {
     static constexpr int dim=4;
     int x;
     int r;
@@ -2581,11 +2560,11 @@ ivec3 cos(const ivec3&);struct ivec4 {
     ivec4();
     explicit ivec4(int);
     ivec4(int, int, int, int);
-    explicit ivec4(ivec3, int);
-    explicit ivec4(int, ivec3);
-    explicit ivec4(ivec2, int, int);
-    explicit ivec4(int, ivec2, int);
-    explicit ivec4(int, int, ivec2);
+    ivec4(ivec3, int);
+    ivec4(int, ivec3);
+    ivec4(ivec2, int, int);
+    ivec4(int, ivec2, int);
+    ivec4(int, int, ivec2);
     int operator[](const int);
     ivec4& operator=(const ivec4&);
     template<typename T> ivec4& operator+=(const T&);
@@ -2625,129 +2604,210 @@ ivec4 operator/(const ivec4&, const int&  );
 ivec4 refract(const ivec4&, const ivec4&, float);
 ivec4 dFdx(const ivec4&);
 ivec4 dFdy(const ivec4&);
-ivec4 exp2(const ivec4&);
-ivec4 clamp(const ivec4&, const ivec4&, const ivec4&);
-ivec4 clamp(const ivec4&, const float&, const float&);
-ivec4 sin(const ivec4&);
-ivec4 cos(const ivec4&);
+
 // clang-format on
 
 // keywords
+[[noreturn]] void abort() { throw "discard"; }
 #define uniform
 #define in
 #define out
 #define inout
 #define attribute
+#define flat
 #define discard abort()
 #define layout(...)
-void EmitVertex();
-void EndPrimitive();
+extern void EmitVertex();
+extern void EndPrimitive();
 
 // matx
-struct mat3 {};
-struct mat4 {};
+struct mat3;
+struct mat4;
 
 // gl_*
-vec4 gl_FragData[8];
-vec4 gl_FragColor;
-vec4 gl_Position;
-vec4 gl_MultiTexCoord0, gl_MultiTexCoord1;
-vec4 gl_Normal, gl_Color;
-vec4 ftransform();
-vec4 gl_Vertex;
-mat3 gl_NormalMatrix;
-mat4 gl_ModelViewMatrix, gl_ProjectionMatrix;
-mat4 *gl_TextureMatrix;
+extern vec4  gl_FragData[8];
+extern vec4  gl_FragColor;
+extern vec4  gl_Position;
+extern vec4  gl_MultiTexCoord0, gl_MultiTexCoord1;
+extern vec4  gl_Color;
+extern vec3  gl_Normal;
+extern vec4  ftransform();
+extern vec4  gl_Vertex;
+extern mat3  gl_NormalMatrix;
+extern mat4  gl_ModelViewMatrix, gl_ProjectionMatrix;
+extern mat4 gl_TextureMatrix[];
 struct gl_PerVertex {
-    vec4 gl_Position;
-    float gl_PointSize;
+    vec4   gl_Position;
+    float  gl_PointSize;
     float *gl_ClipDistance;
 };
-gl_PerVertex *gl_in;
+extern gl_PerVertex gl_in[];
 
 // texture type
 struct sampler2D {};
 struct sampler2DShadow {};
-vec4 texture2D(sampler2D, vec2);
-vec4 texture2D(sampler2D, vec2, float);
-vec4 texture2D(sampler2DShadow, vec2);
-vec4 texture2D(sampler2DShadow, vec2, float);
-vec4 texture2DLod(sampler2D, vec2, int);
-vec4 texture2DLod(sampler2DShadow, vec2, int);
-vec4 shadow2DLod(sampler2D, vec3, int);
-vec4 shadow2DLod(sampler2DShadow, vec3, int);
+extern vec4  texture2D(sampler2D, vec2);
+extern vec4  texture2D(sampler2D, vec2, float);
+extern vec4  texture2D(sampler2DShadow, vec2);
+extern vec4  texture2D(sampler2DShadow, vec2, float);
+extern vec4  texture2DLod(sampler2D, vec2, int);
+extern vec4  texture2DLod(sampler2DShadow, vec2, int);
+extern vec4  shadow2DLod(sampler2D, vec3, int);
+extern vec4  shadow2DLod(sampler2DShadow, vec3, int);
+extern ivec2 textureSize(sampler2D, int);
+
+extern vec3 reflect(vec3 I, vec3 N);
+extern vec3 refract(vec3 I, vec3 N, float eta);
 
 // matx * vecx
-vec4 operator*(mat4, vec4);
-vec3 operator*(mat3, vec3);
-
-#include <concepts>
-#include <type_traits>
-template <typename T>
-concept float_like = requires(T a) {
-    std::is_floating_point_v<T>;
-};
-template <typename T>
-concept vec_like = requires(T a) {
-    std::is_same_v<T, vec2> || std::is_same_v<T, vec3> || std::is_same_v<T, vec4>;
-};
-template <typename T>
-concept ivec_like = requires(T a) {
-    std::is_same_v<T, ivec2> || std::is_same_v<T, ivec3> || std::is_same_v<T, ivec4>;
-};
-template <typename T>
-concept xvec_like = requires(T a) {
-    std::is_same_v<T, vec2> || std::is_same_v<T, vec3> || std::is_same_v<T, vec4> || std::is_same_v<T, ivec2> || std::is_same_v<T, ivec3> || std::is_same_v<T, ivec4>;
-};
-template <typename T, typename V>
-concept same_dim = requires(T a, V b) {
-    xvec_like<T> &&xvec_like<V> &&T::dim == V::dim;
-};
-template <typename T, typename V, typename...>
-concept same_dim = requires(T a, V b) {
-    xvec_like<T> &&xvec_like<V> &&T::dim == V::dim;
-};
-
-// clang-format off
+extern vec4 operator*(mat4, vec4);
+extern vec3 operator*(mat3, vec3);
+extern mat4 operator*(mat4, mat4);
+extern mat3 operator*(mat3, mat3);
 
 // float like defs
-template<float_like T> int floor(T);
-template<float_like T> T fract(T);
-template<float_like T, float_like V> float mod(T, V);
-template<float_like T, float_like V> float pow(T, V);
-template<float_like T, float_like V> float min(T, V);
-template<float_like T, float_like V> float max(T, V);
-template<float_like T, float_like V> float step(T, V);
-template<float_like T, float_like V, float_like P> float mix(T, V, P);
-template<float_like T, float_like V, float_like P> float clamp(T, V, P);
+extern float floor(float);
+extern float fract(float);
+extern float mod(float, float);
+extern float pow(float, float);
+extern float min(float, float);
+extern float max(float, float);
+extern float step(float, float);
+extern float mix(float, float, float);
+extern float clamp(float, float, float);
+// clang-format off
+extern vec2 floor(vec2);
+extern vec3 floor(vec3);
+extern vec4 floor(vec4);
+extern vec2 fract(vec2);
+extern vec3 fract(vec3);
+extern vec4 fract(vec4);
+extern vec2 normalize(vec2);
+extern vec3 normalize(vec3);
+extern vec4 normalize(vec4);
+extern vec2 mod(vec2, vec2);
+extern vec3 mod(vec3, vec3);
+extern vec4 mod(vec4, vec4);
+extern vec2 min(vec2, vec2);
+extern vec3 min(vec3, vec3);
+extern vec4 min(vec4, vec4);
+extern vec2 max(vec2, vec2);
+extern vec3 max(vec3, vec3);
+extern vec4 max(vec4, vec4);
+extern vec2 pow(vec2, vec2);
+extern vec3 pow(vec3, vec3);
+extern vec4 pow(vec4, vec4);
+extern vec2 pow(vec2, float);
+extern vec3 pow(vec3, float);
+extern vec4 pow(vec4, float);
+extern vec2 step(vec2, float);
+extern vec3 step(vec3, float);
+extern vec4 step(vec4, float);
+extern vec2 step(vec2, vec2);
+extern vec3 step(vec3, vec3);
+extern vec4 step(vec4, vec4);
+extern vec2 step(vec2, ivec2);
+extern vec3 step(vec3, ivec3);
+extern vec4 step(vec4, ivec4);
+extern vec2 mix(vec2, vec2, vec2);
+extern vec3 mix(vec3, vec3, vec3);
+extern vec4 mix(vec4, vec4, vec4);
+extern vec2 mix(vec2, vec2, float);
+extern vec3 mix(vec3, vec3, float);
+extern vec4 mix(vec4, vec4, float);
+extern vec2 clamp(vec2, float, float);
+extern vec3 clamp(vec3, float, float);
+extern vec4 clamp(vec4, float, float);
+extern vec2 clamp(vec2, vec2, vec2);
+extern vec3 clamp(vec3, vec3, vec3);
+extern vec4 clamp(vec4, vec4, vec4);
+extern vec2  sin(vec2);
+extern vec3  sin(vec3);
+extern vec4  sin(vec4);
+extern float  sin(float);
+extern vec2  cos(vec2);
+extern vec3  cos(vec3);
+extern vec4  cos(vec4);
+extern float  cos(float);
+extern vec2  tan(vec2);
+extern vec3  tan(vec3);
+extern vec4  tan(vec4);
+extern float  tan(float);
+extern vec2  cot(vec2);
+extern vec3  cot(vec3);
+extern vec4  cot(vec4);
+extern float  cot(float);
+extern vec2  sec(vec2);
+extern vec3  sec(vec3);
+extern vec4  sec(vec4);
+extern float  sec(float);
+extern vec2  csc(vec2);
+extern vec3  csc(vec3);
+extern vec4  csc(vec4);
+extern float  csc(float);
+extern vec2 asin(vec2);
+extern vec3 asin(vec3);
+extern vec4 asin(vec4);
+extern float asin(float);
+extern vec2 acos(vec2);
+extern vec3 acos(vec3);
+extern vec4 acos(vec4);
+extern float acos(float);
+extern vec2 atan(vec2);
+extern vec3 atan(vec3);
+extern vec4 atan(vec4);
+extern float atan(float);
+extern vec2 acot(vec2);
+extern vec3 acot(vec3);
+extern vec4 acot(vec4);
+extern float acot(float);
+extern vec2 asec(vec2);
+extern vec3 asec(vec3);
+extern vec4 asec(vec4);
+extern float asec(float);
+extern vec2 acsc(vec2);
+extern vec3 acsc(vec3);
+extern vec4 acsc(vec4);
+extern float acsc(float);
+extern vec2  abs(vec2);
+extern vec3  abs(vec3);
+extern vec4  abs(vec4);
+extern float  abs(float);
+extern vec2  exp(vec2);
+extern vec3  exp(vec3);
+extern vec4  exp(vec4);
+extern float  exp(float);
+extern vec2  log(vec2);
+extern vec3  log(vec3);
+extern vec4  log(vec4);
+extern float  log(float);
+extern vec2 exp2(vec2);
+extern vec3 exp2(vec3);
+extern vec4 exp2(vec4);
+extern float exp2(float);
+extern vec2 log2(vec2);
+extern vec3 log2(vec3);
+extern vec4 log2(vec4);
+extern float log2(float);
+extern vec2 sqrt(vec2);
+extern vec3 sqrt(vec3);
+extern vec4 sqrt(vec4);
+extern float sqrt(float);
+extern vec2 sign(vec2);
+extern vec3 sign(vec3);
+extern vec4 sign(vec4);
+extern float sign(float);
 
-// vec like defs
-template<vec_like T> T floor(T);
-template<vec_like T> T fract(T);
-template<vec_like T> T normalize(T);
-template<vec_like T, typename V> T mod(T, V) requires float_like<V>||same_dim<T, V>;
-template<vec_like T, vec_like V> T pow(T, V) requires same_dim<T, V>;
-template<vec_like T, typename V> T min(T, V) requires float_like<V>||same_dim<T, V>;
-template<vec_like T, typename V> T max(T, V) requires float_like<V>||same_dim<T, V>;
-template<vec_like T, xvec_like V> T step(T, V) requires same_dim<T, V>;
-template<vec_like T, vec_like V, typename P> T mix(T, V, P) requires same_dim<T, V> && (float_like<P>||same_dim<V, P>);
-template<vec_like T, typename V, typename P> float clamp(T, V, P) requires (float_like<P>&&float_like<V>)||(same_dim<V,P>&&same_dim<T,V>);
-
-template<typename T> T sin(T) requires float_like<T>||vec_like<T>;
-template<typename T> T cos(T) requires float_like<T>||vec_like<T>;
-template<typename T> T exp2(T) requires float_like<T>||vec_like<T>;
-
-// single arg defs
-template<typename T> T sqrt(T);
-template<typename T> T abs(T);
-template<typename T> T sign(T);
 // clang-format on
-
-float length(vec2);
-float length(vec3);
-vec3 cross(vec3, vec3);
-float dot(vec3, vec3);
-float dot(vec2, vec2);
-float distance(vec3, vec3);
+extern float length(vec2);
+extern float length(vec3);
+extern vec3  cross(vec3, vec3);
+extern float dot(vec3, vec3);
+extern float dot(vec2, vec2);
+extern float distance(vec2, vec2);
+extern float distance(vec3, vec3);
+extern float distance(vec4, vec4);
+#else
+#define constexpr const
 #endif
 #endif
