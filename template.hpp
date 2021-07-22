@@ -1,98 +1,135 @@
 /* NO INCLUDE */
-#ifndef GLSLCPP
-#define GLSLCPP
+#ifndef HHGI_temp
+#define HHGI_temp
 #ifdef __cplusplus
-struct vec2;
-struct vec3;
-struct vec4;
-struct ivec2;
-struct ivec3;
-struct ivec4;
-// vecx
-// clang-format off
-{{{ def_xvecx }}}
-// clang-format on
 
-// keywords
-[[noreturn]] void abort() { throw "discard"; }
-#define uniform
-#define in
-#define out
-#define inout
-#define attribute
-#define flat
-#define discard abort()
-#define layout(...)
-extern void EmitVertex();
-extern void EndPrimitive();
+#include <type_traits>
+#include <array>
 
-// matx
-struct mat3;
-struct mat4;
-
-// gl_*
-extern vec4  gl_FragData[8];
-extern vec4  gl_FragColor;
-extern vec4  gl_Position;
-extern vec4  gl_MultiTexCoord0, gl_MultiTexCoord1;
-extern vec4  gl_Color;
-extern vec3  gl_Normal;
-extern vec4  ftransform();
-extern vec4  gl_Vertex;
-extern mat3  gl_NormalMatrix;
-extern mat4  gl_ModelViewMatrix, gl_ProjectionMatrix;
-extern mat4 gl_TextureMatrix[];
-struct gl_PerVertex {
-    vec4   gl_Position;
-    float  gl_PointSize;
-    float *gl_ClipDistance;
-};
-extern gl_PerVertex gl_in[];
-
-// texture type
-struct sampler2D {};
-struct sampler2DShadow {};
-extern vec4  texture2D(sampler2D, vec2);
-extern vec4  texture2D(sampler2D, vec2, float);
-extern vec4  texture2D(sampler2DShadow, vec2);
-extern vec4  texture2D(sampler2DShadow, vec2, float);
-extern vec4  texture2DLod(sampler2D, vec2, int);
-extern vec4  texture2DLod(sampler2DShadow, vec2, int);
-extern vec4  shadow2DLod(sampler2D, vec3, int);
-extern vec4  shadow2DLod(sampler2DShadow, vec3, int);
-extern ivec2 textureSize(sampler2D, int);
-
-extern vec3 reflect(vec3 I, vec3 N);
-extern vec3 refract(vec3 I, vec3 N, float eta);
-
-// matx * vecx
-extern vec4 operator*(mat4, vec4);
-extern vec3 operator*(mat3, vec3);
-extern mat4 operator*(mat4, mat4);
-extern mat3 operator*(mat3, mat3);
-
-// float like defs
-extern float floor(float);
-extern float fract(float);
-extern float mod(float, float);
-extern float pow(float, float);
-extern float min(float, float);
-extern float max(float, float);
-extern float step(float, float);
-extern float mix(float, float, float);
-extern float clamp(float, float, float);
-// clang-format off
-{{{ def_funcs }}}
-// clang-format on
-extern float length(vec2);
-extern float length(vec3);
-extern vec3  cross(vec3, vec3);
-extern float dot(vec3, vec3);
-extern float dot(vec2, vec2);
-extern float distance(vec2, vec2);
-extern float distance(vec3, vec3);
-extern float distance(vec4, vec4);
+#if __cplusplus > 201703UL
+#include <concepts>
 #else
-#define constexpr const
+#define requires
+#endif
+
+using uint = unsigned int;
+
+template <typename T, uint N>
+struct vec;
+template <typename T, uint N, uint M>
+struct mat;
+
+template <typename V>
+struct get_dim
+{
+    static constexpr value = 1;
+};
+template <typename T, int N>
+struct get_dim<vec<T, N>>
+{
+    static constexpr value = N;
+};
+
+// clang-format off
+{{ #vecdecl }}
+{{{ content }}}
+{{ /vecdecl }}
+
+{{ #matdecl }}
+{{{ content }}}
+{{ /matdecl }}
+// clang-format on
+
+using bvec2 = vec<bool, 2>;
+using bvec3 = vec<bool, 3>;
+using bvec4 = vec<bool, 4>;
+
+using ivec2 = vec<int, 2>;
+using ivec3 = vec<int, 3>;
+using ivec4 = vec<int, 4>;
+
+using uvec2 = vec<uint, 2>;
+using uvec3 = vec<uint, 3>;
+using uvec4 = vec<uint, 4>;
+
+using vec2 = vec<float, 2>;
+using vec3 = vec<float, 3>;
+using vec4 = vec<float, 4>;
+
+using dvec2 = vec<double, 2>;
+using dvec3 = vec<double, 3>;
+using dvec4 = vec<double, 4>;
+
+using mat2x2 = mat<float, 2, 2>;
+using dmat2x2 = mat<double, 2, 2>;
+using mat2x3 = mat<float, 2, 3>;
+using dmat2x3 = mat<double, 2, 3>;
+using mat2x4 = mat<float, 2, 4>;
+using dmat2x4 = mat<double, 2, 4>;
+using mat3x2 = mat<float, 3, 2>;
+using dmat3x2 = mat<double, 3, 2>;
+using mat3x3 = mat<float, 3, 3>;
+using dmat3x3 = mat<double, 3, 3>;
+using mat3x4 = mat<float, 3, 4>;
+using dmat3x4 = mat<double, 3, 4>;
+using mat4x2 = mat<float, 4, 2>;
+using dmat4x2 = mat<double, 4, 2>;
+using mat4x3 = mat<float, 4, 3>;
+using dmat4x3 = mat<double, 4, 3>;
+using mat4x4 = mat<float, 4, 4>;
+using dmat4x4 = mat<double, 4, 4>;
+
+using mat2 = mat<float, 2, 2>;
+using dmat2 = mat<double, 2, 2>;
+using mat3 = mat<float, 3, 3>;
+using dmat3 = mat<double, 3, 3>;
+using mat4 = mat<float, 4, 4>;
+using dmat4 = mat<double, 4, 4>;
+
+enum _textureType
+{
+    texture_1D,
+    texture_2D,
+    texture_3D,
+    texture_Cube,
+    texture_2DRect,
+    texture_1DArray,
+    texture_2DArray,
+    texture_CubeArray,
+    texture_Buffer,
+    texture_2DMS,
+    texture_2DMSArray,
+};
+
+// enum _textureAccess
+// {
+//     texture_sampler,
+//     texture_image,
+// };
+
+template <typename V, _textureType T>
+struct _gsampler;
+template <typename V, _textureType T>
+struct _gimage;
+
+// clang-format off
+{{{ texdecl }}}
+// clang-format on
+
+
+template <typename V, _textureType T>
+ivec2 imageSize(const _gimage<V, T>&);
+template <typename V, _textureType T>
+vec<V, 4> imageLoad(const _gimage<V, T>&, ivec2);
+template <typename V, _textureType T>
+void imageStore(const _gimage<V, T>&, ivec2, vec<V, 4>);
+
+template <typename V, _textureType T>
+ivec2 textureSize(const _gsampler<V, T>&, int LOD = 0);
+template <typename V, _textureType T>
+int textureQueryLevels(const _gsampler<V, T>&);
+template <typename V, _textureType T>
+vec<V, 4> texture(const _gsampler<V, T>&, vec2 texCoord​, float bias​=0);
+
 #endif
 #endif
