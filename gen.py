@@ -13,7 +13,7 @@ class struct:
 class xvecx(struct):
     def __init__(self, x: int, t: str) -> None:
         assert x in [2,3,4]
-        prefix = {"int": "i", "float": ""}
+        prefix = {"int": "i", "float": "", "unsigned":"u"}
         super().__init__(f"{prefix[t]}vec{x}")
         xyzw = ["x", "y", "z", "w"]
         rgba = ["r", "g", "b", "a"]
@@ -23,27 +23,27 @@ class xvecx(struct):
             self.add(f"{t} {xyzw[_]};")
             self.add(f"{t} {rgba[_]};")
             self.add(f"{t} {stuv[_]};")
-        if x>=2:
-            for i in range(x):
-                for j in range(x):
-                    self.add(f"{prefix[t]}vec{2}& {xyzw[i]}{xyzw[j]};")
-                    self.add(f"{prefix[t]}vec{2}& {rgba[i]}{rgba[j]};")
-                    self.add(f"{prefix[t]}vec{2}& {stuv[i]}{stuv[j]};")
-        if x>=3:
-            for i in range(x):
-                for j in range(x):
-                    for k in range(x):
-                        self.add(f"{prefix[t]}vec{3}& {xyzw[i]}{xyzw[j]}{xyzw[k]};")
-                        self.add(f"{prefix[t]}vec{3}& {rgba[i]}{rgba[j]}{rgba[k]};")
-                        self.add(f"{prefix[t]}vec{3}& {stuv[i]}{stuv[j]}{stuv[k]};")
-        if x>=4:
-            for i in range(x):
-                for j in range(x):
-                    for k in range(x):
-                        for l in range(x):
-                            self.add(f"{prefix[t]}vec{4}& {xyzw[i]}{xyzw[j]}{xyzw[k]}{xyzw[l]};")
-                            self.add(f"{prefix[t]}vec{4}& {rgba[i]}{rgba[j]}{rgba[k]}{rgba[l]};")
-                            self.add(f"{prefix[t]}vec{4}& {stuv[i]}{stuv[j]}{stuv[k]}{stuv[l]};")
+        # if x>=2:
+        for i in range(x):
+            for j in range(x):
+                self.add(f"{prefix[t]}vec{2}& {xyzw[i]}{xyzw[j]};")
+                self.add(f"{prefix[t]}vec{2}& {rgba[i]}{rgba[j]};")
+                self.add(f"{prefix[t]}vec{2}& {stuv[i]}{stuv[j]};")
+        # if x>=3:
+        for i in range(x):
+            for j in range(x):
+                for k in range(x):
+                    self.add(f"{prefix[t]}vec{3}& {xyzw[i]}{xyzw[j]}{xyzw[k]};")
+                    self.add(f"{prefix[t]}vec{3}& {rgba[i]}{rgba[j]}{rgba[k]};")
+                    self.add(f"{prefix[t]}vec{3}& {stuv[i]}{stuv[j]}{stuv[k]};")
+        # if x>=4:
+        for i in range(x):
+            for j in range(x):
+                for k in range(x):
+                    for l in range(x):
+                        self.add(f"{prefix[t]}vec{4}& {xyzw[i]}{xyzw[j]}{xyzw[k]}{xyzw[l]};")
+                        self.add(f"{prefix[t]}vec{4}& {rgba[i]}{rgba[j]}{rgba[k]}{rgba[l]};")
+                        self.add(f"{prefix[t]}vec{4}& {stuv[i]}{stuv[j]}{stuv[k]}{stuv[l]};")
         # construct
         self.add(f"{prefix[t]}vec{x}();")
         self.add(f"explicit {prefix[t]}vec{x}({t});")
@@ -51,6 +51,24 @@ class xvecx(struct):
         if t == "float":
             self.add(f"{prefix[t]}vec{x}(const ivec{x}&);")
             self.add(f"{prefix[t]}vec{x}& operator=(const ivec{x}&);")
+            self.add(f"{prefix[t]}vec{x}(const uvec{x}&);")
+            self.add(f"{prefix[t]}vec{x}& operator=(const uvec{x}&);")
+        if t == "unsigned":
+            self.add(f"explicit {prefix[t]}vec{x}(const vec{x}&);")
+            self.add(f"{prefix[t]}vec{x}& operator=(const vec{x}&);")
+            self.add(f"{prefix[t]}vec{x}(const ivec{x}&);")
+            self.add(f"{prefix[t]}vec{x}& operator=(const ivec{x}&);")
+            self.add(f"{prefix[t]}vec{x}& operator~();")
+            self.add(f"{prefix[t]}vec{x} operator>>(const {prefix[t]}vec{x}&);")
+            self.add(f"{prefix[t]}vec{x} operator<<(const {prefix[t]}vec{x}&);")
+        if t == "int":
+            self.add(f"explicit {prefix[t]}vec{x}(const vec{x}&);")
+            self.add(f"{prefix[t]}vec{x}& operator=(const vec{x}&);")
+            self.add(f"{prefix[t]}vec{x}(const uvec{x}&);")
+            self.add(f"{prefix[t]}vec{x}& operator=(const uvec{x}&);")
+            self.add(f"{prefix[t]}vec{x}& operator~();")
+            self.add(f"{prefix[t]}vec{x} operator>>(const {prefix[t]}vec{x}&);")
+            self.add(f"{prefix[t]}vec{x} operator<<(const {prefix[t]}vec{x}&);")
         if x == 3:
             self.add(f"{prefix[t]}vec{x}({prefix[t]}vec{x-1}, {t});")
             self.add(f"{prefix[t]}vec{x}({t}, {prefix[t]}vec{x-1});")
@@ -62,9 +80,23 @@ class xvecx(struct):
             self.add(f"{prefix[t]}vec{x}({prefix[t]}vec{x-2}, {t}, {t});")
             self.add(f"{prefix[t]}vec{x}({t}, {prefix[t]}vec{x-2}, {t});")
             self.add(f"{prefix[t]}vec{x}({t}, {t}, {prefix[t]}vec{x-2});")
+            self.add(f"{prefix[t]}vec{x}({prefix[t]}vec{2}, {prefix[t]}vec{2});")
 
             # self.add(f"{prefix[t]}vec{x}& operator=(const {prefix[t]}vec{x-1}&);")
             # self.add(f"{prefix[t]}vec{x}& operator=(const {prefix[t]}vec{x-2}&);")
+        # operator>>
+        self.add(f"{prefix[t]}vec{x} operator>>(const int);")
+        # operator<<
+        self.add(f"{prefix[t]}vec{x} operator<<(const int);")
+        # operator^
+        self.add(f"{prefix[t]}vec{x} operator^(const int);")
+        self.add(f"{prefix[t]}vec{x} operator^(const {prefix[t]}vec{x});")
+        # operator&
+        self.add(f"{prefix[t]}vec{x} operator&(const int);")
+        self.add(f"{prefix[t]}vec{x} operator&(const {prefix[t]}vec{x});")
+        # operator|
+        self.add(f"{prefix[t]}vec{x} operator|(const int);")
+        self.add(f"{prefix[t]}vec{x} operator|(const {prefix[t]}vec{x});")
         # operator[]
         self.add(f"{t} operator[](const int);")
         # operator=
@@ -126,7 +158,7 @@ class xvecx(struct):
 import sys, pystache
 with open("template.hpp", newline="\n", encoding="utf-8") as f:
     template = f.read()
-def_xvecx = repr(xvecx(2, "float"))+repr(xvecx(3, "float"))+repr(xvecx(4, "float"))+repr(xvecx(2, "int"))+repr(xvecx(3, "int"))+repr(xvecx(4, "int"))
+def_xvecx = repr(xvecx(2, "float"))+repr(xvecx(3, "float"))+repr(xvecx(4, "float"))+repr(xvecx(2, "int"))+repr(xvecx(3, "int"))+repr(xvecx(4, "int"))+repr(xvecx(2, "unsigned"))+repr(xvecx(3, "unsigned"))+repr(xvecx(4, "unsigned"))
 def_funcs = "\n".join([
     f"extern vec{x} floor(vec{x});" for x in [2,3,4]
 ]) + "\n" + "\n".join([
@@ -178,5 +210,16 @@ def_funcs = "\n".join([
 + "\n".join([f"extern {T} sqrt({T});" for T in ["vec2","vec3","vec4","float"]]) + "\n" \
 + "\n".join([f"extern {T} sign({T});" for T in ["vec2","vec3","vec4","float"]]) + "\n"
 
+
+def make_macro(arg):
+    spl = arg[2:].split("=")
+    if len(spl)==1:
+        return f"#define {spl[0]}"
+    elif len(spl)==2:
+        return f"#define {spl[0]} {spl[1]}"
+    else:
+        return f"#define {spl[0]}"
+macros = [ make_macro(arg) for arg in sys.argv[1:] if arg.startswith("-D")]
+
 with open("glsl.hpp", "w", newline="\n", encoding="utf-8") as f:
-    f.write(pystache.render(template, {'def_xvecx':def_xvecx, "def_funcs":def_funcs}))
+    f.write(pystache.render(template, {'def_xvecx':def_xvecx, "def_funcs":def_funcs, "macros":"\n".join(macros)}))
