@@ -17,7 +17,8 @@ struct vec<{{genType}}, {{dim}}> : std::array<{{genType}}, {{dim}}>{
     vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&) {
         static_assert(std::is_nothrow_convertible_v<T, {{genType}}>);
     }
-    vec<{{genType}}, {{dim}}>(const {{genType}}&);
+    explicit vec<{{genType}}, {{dim}}>(const {{genType}}&);
+    vec<{{genType}}, {{dim}}>& operator=(const vec<{{genType}}, {{dim}}>&);
 {{{constructors}}}
 };
 '''
