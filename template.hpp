@@ -1,4 +1,5 @@
 #define SUPPRESS_GEN_DEFS
+#pragma none
 /* NO INCLUDE */
 #ifndef H_GLSLHPP
 #define H_GLSLHPP
@@ -7,7 +8,7 @@
 #include <array>
 #include <type_traits>
 
-#if __cplusplus > 201703UL
+#if __cplusplus > 201703L
 #include <concepts>
 #else
 #define requires()
@@ -142,29 +143,16 @@ struct gimage {
     using value_type = V;
 };
 
-#if __cplusplus > 201703UL
+#if __cplusplus > 201703L
 template <typename T>
 concept textureAccessable = requires(T a) {
     typename T::texcoord;
+    typename T::value_type;
 };
 template <typename T>
 concept texelFetchAccessable = requires(T a) {
     typename T::itexcoord;
-};
-template <typename T>
-concept is_image = requires(T a) {
     typename T::value_type;
-    std::is_base_of_v<gimage<typename T::value_type>, T>;
-};
-template <typename T>
-concept is_sampler = requires(T a) {
-    typename T::value_type;
-    std::is_base_of_v<gsampler<typename T::value_type>, T>;
-};
-template <typename T>
-concept is_shadow = requires(T a) {
-    typename T::value_type;
-    std::is_base_of_v<gshadow, T>;
 };
 #endif
 
@@ -176,33 +164,33 @@ concept is_shadow = requires(T a) {
 #endif
 
 // clang-format off
-template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && ::internal::is_image<GImage>)
+template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage>)
 GImage::itexcoord imageSize(const GImage &);
-template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && ::internal::is_image<GImage>)
+template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage>)
 ::internal::vec<typename GImage::value_type, 4> imageLoad(const GImage &, typename GImage::itexcoord);
-template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && ::internal::is_image<GImage>)
+template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage>)
 void imageStore(const GImage &, typename GImage::itexcoord, ::internal::vec<typename GImage::value_type, 4>);
 
-template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && ::internal::is_sampler<GSampler>)
+template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
 GSampler::itexcoord textureSize(const GSampler &, int LOD = 0);
-template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && ::internal::is_sampler<GSampler>)
+template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
 int textureQueryLevels(const GSampler &);
-template<typename GSampler> requires(::internal::textureAccessable<GSampler> && ::internal::is_sampler<GSampler>)
+template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
 ::internal::vec<typename GSampler::value_type, 4> texture(const GSampler &, typename GSampler::texcoord, float bias​ = 0);
-template<typename GSampler> requires(::internal::textureAccessable<GSampler> && ::internal::is_sampler<GSampler>)
+template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
 ::internal::vec<typename GSampler::value_type, 4> textureLod(const GSampler &, typename GSampler::texcoord, float);
-template<typename GSampler> requires(::internal::textureAccessable<GSampler> && ::internal::is_sampler<GSampler> && ::internal::texelFetchAccessable<GSampler>)
+template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler> && ::internal::texelFetchAccessable<GSampler>)
 ::internal::vec<typename GSampler::value_type, 4> textureOffset(const GSampler &, typename GSampler::texcoord, typename GSampler::itexcoord, float bias​ = 0);
 
-template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> && ::internal::is_shadow<GShadow>)
+template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
 GShadow::itexcoord textureSize(const GShadow &, int LOD = 0);
-template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> && ::internal::is_shadow<GShadow>)
+template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
 int textureQueryLevels(const GShadow &);
-template<typename GShadow> requires(::internal::textureAccessable<GShadow> && ::internal::is_shadow<GShadow>)
+template<typename GShadow> requires(::internal::textureAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
 GShadow::value_type texture(const GShadow &, typename GShadow::texcoord, float bias​ = 0);
-template<typename GShadow> requires(::internal::textureAccessable<GShadow> && ::internal::is_shadow<GShadow>)
+template<typename GShadow> requires(::internal::textureAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
 GShadow::value_type textureLod(const GShadow &, typename GShadow::texcoord, float);
-template<typename GShadow> requires(::internal::textureAccessable<GShadow> && ::internal::is_shadow<GShadow> && ::internal::texelFetchAccessable<GShadow>)
+template<typename GShadow> requires(::internal::textureAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow> && ::internal::texelFetchAccessable<GShadow>)
 GShadow::value_type textureOffset(const GShadow &, typename GShadow::texcoord, typename GShadow::itexcoord, float bias​ = 0);
 // clang-format on
 
@@ -255,6 +243,14 @@ template <typename genType, uint N>
 template <typename genType, uint N>
 ::internal::vec<genType, N> operator/(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
 template <typename genType, uint N>
+::internal::vec<genType, N> operator+(const genType &, const ::internal::vec<genType, N> &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator+(const ::internal::vec<genType, N> &, const genType &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator-(const genType &, const ::internal::vec<genType, N> &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator-(const ::internal::vec<genType, N> &, const genType &);
+template <typename genType, uint N>
 ::internal::vec<genType, N> operator*(const genType &, const ::internal::vec<genType, N> &);
 template <typename genType, uint N>
 ::internal::vec<genType, N> operator*(const ::internal::vec<genType, N> &, const genType &);
@@ -292,6 +288,7 @@ float exp2(float);
 float log2(float);
 float sqrt(float);
 float sign(float);
+float invsqrt(float);
 
 // clang-format off
 template<typename genType, uint N> ::internal::vec<genType, N> floor(const ::internal::vec<genType, N> &);
@@ -323,6 +320,7 @@ template<typename genType, uint N> ::internal::vec<genType, N> exp2(const ::inte
 template<typename genType, uint N> ::internal::vec<genType, N> log2(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> ::internal::vec<genType, N> sqrt(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> ::internal::vec<genType, N> sign(const ::internal::vec<genType, N>&);
+template<typename genType, uint N> ::internal::vec<float, N> invsqrt(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> ::internal::vec<float, N> normalize(const ::internal::vec<genType, N>&);
 
 template<typename genType, uint N> float length(const ::internal::vec<genType, N>&);

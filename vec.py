@@ -13,11 +13,9 @@ struct vec<{{genType}}, {{dim}}> : std::array<{{genType}}, {{dim}}>{
     
     // constructor
     vec<{{genType}}, {{dim}}>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, {{genType}}>)
-    vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&) {
-        static_assert(std::is_nothrow_convertible_v<T, {{genType}}>);
-    }
-    explicit vec<{{genType}}, {{dim}}>(const {{genType}}&);
+    template<typename T> requires(std::is_nothrow_convertible_v<T, {{genType}} || std::is_nothrow_convertible_v<{{genType}}, T>>)
+    vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&);
+    vec<{{genType}}, {{dim}}>(const {{genType}}&);
     vec<{{genType}}, {{dim}}>& operator=(const vec<{{genType}}, {{dim}}>&);
 {{{constructors}}}
 };
@@ -80,7 +78,7 @@ class vec:
                 {"component": component}
                 for component in ("xyzw"[:dim]+"rgba"[:dim]+"stuv"[:dim])
             ],
-            "constructors": make_constructor(dim, genType)
+            "constructors": make_constructor(dim, genType) + (f"\nvec<{genType}, {dim}>({', '.join(['const double&'] * dim)});\n" if genType == "float" else "")
         }
         if not lite:
             filler["swizzle"] = [
