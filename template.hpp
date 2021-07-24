@@ -177,6 +177,8 @@ template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> 
 int textureQueryLevels(const GSampler &);
 template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
 ::internal::vec<typename GSampler::value_type, 4> texture(const GSampler &, typename GSampler::texcoord, float bias​ = 0);
+template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
+::internal::vec<typename GSampler::value_type, 4> texelFetch(const GSampler &, typename GSampler::itexcoord, int LOD = 0);
 template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
 ::internal::vec<typename GSampler::value_type, 4> textureLod(const GSampler &, typename GSampler::texcoord, float);
 template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler> && ::internal::texelFetchAccessable<GSampler>)
@@ -188,6 +190,8 @@ template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> &&
 int textureQueryLevels(const GShadow &);
 template<typename GShadow> requires(::internal::textureAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
 GShadow::value_type texture(const GShadow &, typename GShadow::texcoord, float bias​ = 0);
+template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> && std::derived_from<GShadow, ::internal::gsampler>)
+GShadow::value_type texelFetch(const GShadow &, typename GShadow::itexcoord, int LOD = 0);
 template<typename GShadow> requires(::internal::textureAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
 GShadow::value_type textureLod(const GShadow &, typename GShadow::texcoord, float);
 template<typename GShadow> requires(::internal::textureAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow> && ::internal::texelFetchAccessable<GShadow>)
