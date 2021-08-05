@@ -18,7 +18,7 @@ struct vec<{{genType}}, {{dim}}> : std::array<{{genType}}, {{dim}}>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, {{genType}}>)
     vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, {{genType}}>)
     explict vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&);
     template<typename T> requires(std::is_nothrow_convertible_v<{{genType}}, T> || std::is_nothrow_convertible_v<T, {{genType}}>)
     vec<{{genType}}, {{dim}}>& operator=(const vec<T, {{dim}}>&);

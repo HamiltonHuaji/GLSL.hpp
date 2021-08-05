@@ -134,7 +134,7 @@ struct vec<bool, 2> : std::array<bool, 2>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
     vec<bool, 2>(const vec<T, 2>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, bool>)
     explict vec<bool, 2>(const vec<T, 2>&);
     template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
     vec<bool, 2>& operator=(const vec<T, 2>&);
@@ -514,7 +514,7 @@ struct vec<bool, 3> : std::array<bool, 3>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
     vec<bool, 3>(const vec<T, 3>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, bool>)
     explict vec<bool, 3>(const vec<T, 3>&);
     template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
     vec<bool, 3>& operator=(const vec<T, 3>&);
@@ -1556,7 +1556,7 @@ struct vec<bool, 4> : std::array<bool, 4>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
     vec<bool, 4>(const vec<T, 4>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, bool>)
     explict vec<bool, 4>(const vec<T, 4>&);
     template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
     vec<bool, 4>& operator=(const vec<T, 4>&);
@@ -1671,7 +1671,7 @@ struct vec<int, 2> : std::array<int, 2>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
     vec<int, 2>(const vec<T, 2>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, int>)
     explict vec<int, 2>(const vec<T, 2>&);
     template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
     vec<int, 2>& operator=(const vec<T, 2>&);
@@ -2051,7 +2051,7 @@ struct vec<int, 3> : std::array<int, 3>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
     vec<int, 3>(const vec<T, 3>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, int>)
     explict vec<int, 3>(const vec<T, 3>&);
     template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
     vec<int, 3>& operator=(const vec<T, 3>&);
@@ -3093,7 +3093,7 @@ struct vec<int, 4> : std::array<int, 4>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
     vec<int, 4>(const vec<T, 4>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, int>)
     explict vec<int, 4>(const vec<T, 4>&);
     template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
     vec<int, 4>& operator=(const vec<T, 4>&);
@@ -3208,7 +3208,7 @@ struct vec<uint, 2> : std::array<uint, 2>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
     vec<uint, 2>(const vec<T, 2>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, uint>)
     explict vec<uint, 2>(const vec<T, 2>&);
     template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
     vec<uint, 2>& operator=(const vec<T, 2>&);
@@ -3588,7 +3588,7 @@ struct vec<uint, 3> : std::array<uint, 3>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
     vec<uint, 3>(const vec<T, 3>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, uint>)
     explict vec<uint, 3>(const vec<T, 3>&);
     template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
     vec<uint, 3>& operator=(const vec<T, 3>&);
@@ -4630,7 +4630,7 @@ struct vec<uint, 4> : std::array<uint, 4>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
     vec<uint, 4>(const vec<T, 4>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, uint>)
     explict vec<uint, 4>(const vec<T, 4>&);
     template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
     vec<uint, 4>& operator=(const vec<T, 4>&);
@@ -4745,7 +4745,7 @@ struct vec<float, 2> : std::array<float, 2>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
     vec<float, 2>(const vec<T, 2>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, float>)
     explict vec<float, 2>(const vec<T, 2>&);
     template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
     vec<float, 2>& operator=(const vec<T, 2>&);
@@ -5127,7 +5127,7 @@ struct vec<float, 3> : std::array<float, 3>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
     vec<float, 3>(const vec<T, 3>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, float>)
     explict vec<float, 3>(const vec<T, 3>&);
     template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
     vec<float, 3>& operator=(const vec<T, 3>&);
@@ -6171,7 +6171,7 @@ struct vec<float, 4> : std::array<float, 4>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
     vec<float, 4>(const vec<T, 4>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, float>)
     explict vec<float, 4>(const vec<T, 4>&);
     template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
     vec<float, 4>& operator=(const vec<T, 4>&);
@@ -6288,7 +6288,7 @@ struct vec<double, 2> : std::array<double, 2>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
     vec<double, 2>(const vec<T, 2>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, double>)
     explict vec<double, 2>(const vec<T, 2>&);
     template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
     vec<double, 2>& operator=(const vec<T, 2>&);
@@ -6668,7 +6668,7 @@ struct vec<double, 3> : std::array<double, 3>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
     vec<double, 3>(const vec<T, 3>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, double>)
     explict vec<double, 3>(const vec<T, 3>&);
     template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
     vec<double, 3>& operator=(const vec<T, 3>&);
@@ -7710,7 +7710,7 @@ struct vec<double, 4> : std::array<double, 4>{
 
     template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
     vec<double, 4>(const vec<T, 4>&);
-    template<typename T>
+    template<typename T> requires(!std::is_same_v<T, double>)
     explict vec<double, 4>(const vec<T, 4>&);
     template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
     vec<double, 4>& operator=(const vec<T, 4>&);
