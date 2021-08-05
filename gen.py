@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pystache
 
 from vec import vec

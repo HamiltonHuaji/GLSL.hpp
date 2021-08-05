@@ -2,8 +2,9 @@ import pystache
 
 template_vec = '''
 {{comment}}
+template <>
 struct vec<{{genType}}, {{dim}}> : std::array<{{genType}}, {{dim}}>{
-    static constexpr dim = {{dim}};
+    static constexpr uint dim = {{dim}};
     {{#components}}
     {{genType}} {{component}};
     {{/components}}
@@ -13,9 +14,14 @@ struct vec<{{genType}}, {{dim}}> : std::array<{{genType}}, {{dim}}>{
     
     // constructor
     vec<{{genType}}, {{dim}}>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, {{genType}} || std::is_nothrow_convertible_v<{{genType}}, T>>)
-    vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&);
     vec<{{genType}}, {{dim}}>(const {{genType}}&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, {{genType}}>)
+    vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&);
+    template<typename T>
+    explict vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<{{genType}}, T> || std::is_nothrow_convertible_v<T, {{genType}}>)
+    vec<{{genType}}, {{dim}}>& operator=(const vec<T, {{dim}}>&);
     vec<{{genType}}, {{dim}}>& operator=(const vec<{{genType}}, {{dim}}>&);
 {{{constructors}}}
 };

@@ -34,8 +34,9 @@ struct get_dim<vec<T, N>> {
 // clang-format off
 
 // GLSL vector.
+template <>
 struct vec<bool, 2> : std::array<bool, 2>{
-    static constexpr dim = 2;
+    static constexpr uint dim = 2;
     bool x;
     bool y;
     bool r;
@@ -129,17 +130,23 @@ struct vec<bool, 2> : std::array<bool, 2>{
     
     // constructor
     vec<bool, 2>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, bool || std::is_nothrow_convertible_v<bool, T>>)
-    vec<bool, 2>(const vec<T, 2>&);
     vec<bool, 2>(const bool&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
+    vec<bool, 2>(const vec<T, 2>&);
+    template<typename T>
+    explict vec<bool, 2>(const vec<T, 2>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
+    vec<bool, 2>& operator=(const vec<T, 2>&);
     vec<bool, 2>& operator=(const vec<bool, 2>&);
     vec<bool, 2>(const bool&, const bool&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<bool, 3> : std::array<bool, 3>{
-    static constexpr dim = 3;
+    static constexpr uint dim = 3;
     bool x;
     bool y;
     bool z;
@@ -503,19 +510,25 @@ struct vec<bool, 3> : std::array<bool, 3>{
     
     // constructor
     vec<bool, 3>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, bool || std::is_nothrow_convertible_v<bool, T>>)
-    vec<bool, 3>(const vec<T, 3>&);
     vec<bool, 3>(const bool&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
+    vec<bool, 3>(const vec<T, 3>&);
+    template<typename T>
+    explict vec<bool, 3>(const vec<T, 3>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
+    vec<bool, 3>& operator=(const vec<T, 3>&);
     vec<bool, 3>& operator=(const vec<bool, 3>&);
-    vec<bool, 3>(const bool&, const vec<bool, 2>&);
     vec<bool, 3>(const bool&, const bool&, const bool&);
+    vec<bool, 3>(const bool&, const vec<bool, 2>&);
     vec<bool, 3>(const vec<bool, 2>&, const bool&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<bool, 4> : std::array<bool, 4>{
-    static constexpr dim = 4;
+    static constexpr uint dim = 4;
     bool x;
     bool y;
     bool z;
@@ -1539,22 +1552,28 @@ struct vec<bool, 4> : std::array<bool, 4>{
     
     // constructor
     vec<bool, 4>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, bool || std::is_nothrow_convertible_v<bool, T>>)
-    vec<bool, 4>(const vec<T, 4>&);
     vec<bool, 4>(const bool&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
+    vec<bool, 4>(const vec<T, 4>&);
+    template<typename T>
+    explict vec<bool, 4>(const vec<T, 4>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
+    vec<bool, 4>& operator=(const vec<T, 4>&);
     vec<bool, 4>& operator=(const vec<bool, 4>&);
     vec<bool, 4>(const bool&, const vec<bool, 2>&, const bool&);
-    vec<bool, 4>(const bool&, const vec<bool, 3>&);
-    vec<bool, 4>(const vec<bool, 3>&, const bool&);
     vec<bool, 4>(const vec<bool, 2>&, const bool&, const bool&);
+    vec<bool, 4>(const vec<bool, 3>&, const bool&);
     vec<bool, 4>(const bool&, const bool&, const vec<bool, 2>&);
     vec<bool, 4>(const vec<bool, 2>&, const vec<bool, 2>&);
+    vec<bool, 4>(const bool&, const vec<bool, 3>&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<int, 2> : std::array<int, 2>{
-    static constexpr dim = 2;
+    static constexpr uint dim = 2;
     int x;
     int y;
     int r;
@@ -1648,17 +1667,23 @@ struct vec<int, 2> : std::array<int, 2>{
     
     // constructor
     vec<int, 2>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, int || std::is_nothrow_convertible_v<int, T>>)
-    vec<int, 2>(const vec<T, 2>&);
     vec<int, 2>(const int&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
+    vec<int, 2>(const vec<T, 2>&);
+    template<typename T>
+    explict vec<int, 2>(const vec<T, 2>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
+    vec<int, 2>& operator=(const vec<T, 2>&);
     vec<int, 2>& operator=(const vec<int, 2>&);
     vec<int, 2>(const int&, const int&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<int, 3> : std::array<int, 3>{
-    static constexpr dim = 3;
+    static constexpr uint dim = 3;
     int x;
     int y;
     int z;
@@ -2022,19 +2047,25 @@ struct vec<int, 3> : std::array<int, 3>{
     
     // constructor
     vec<int, 3>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, int || std::is_nothrow_convertible_v<int, T>>)
-    vec<int, 3>(const vec<T, 3>&);
     vec<int, 3>(const int&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
+    vec<int, 3>(const vec<T, 3>&);
+    template<typename T>
+    explict vec<int, 3>(const vec<T, 3>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
+    vec<int, 3>& operator=(const vec<T, 3>&);
     vec<int, 3>& operator=(const vec<int, 3>&);
-    vec<int, 3>(const int&, const vec<int, 2>&);
     vec<int, 3>(const int&, const int&, const int&);
+    vec<int, 3>(const int&, const vec<int, 2>&);
     vec<int, 3>(const vec<int, 2>&, const int&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<int, 4> : std::array<int, 4>{
-    static constexpr dim = 4;
+    static constexpr uint dim = 4;
     int x;
     int y;
     int z;
@@ -3058,22 +3089,28 @@ struct vec<int, 4> : std::array<int, 4>{
     
     // constructor
     vec<int, 4>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, int || std::is_nothrow_convertible_v<int, T>>)
-    vec<int, 4>(const vec<T, 4>&);
     vec<int, 4>(const int&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
+    vec<int, 4>(const vec<T, 4>&);
+    template<typename T>
+    explict vec<int, 4>(const vec<T, 4>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
+    vec<int, 4>& operator=(const vec<T, 4>&);
     vec<int, 4>& operator=(const vec<int, 4>&);
     vec<int, 4>(const int&, const vec<int, 2>&, const int&);
-    vec<int, 4>(const int&, const vec<int, 3>&);
-    vec<int, 4>(const vec<int, 3>&, const int&);
     vec<int, 4>(const vec<int, 2>&, const int&, const int&);
+    vec<int, 4>(const vec<int, 3>&, const int&);
     vec<int, 4>(const int&, const int&, const vec<int, 2>&);
     vec<int, 4>(const vec<int, 2>&, const vec<int, 2>&);
+    vec<int, 4>(const int&, const vec<int, 3>&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<uint, 2> : std::array<uint, 2>{
-    static constexpr dim = 2;
+    static constexpr uint dim = 2;
     uint x;
     uint y;
     uint r;
@@ -3167,17 +3204,23 @@ struct vec<uint, 2> : std::array<uint, 2>{
     
     // constructor
     vec<uint, 2>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, uint || std::is_nothrow_convertible_v<uint, T>>)
-    vec<uint, 2>(const vec<T, 2>&);
     vec<uint, 2>(const uint&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
+    vec<uint, 2>(const vec<T, 2>&);
+    template<typename T>
+    explict vec<uint, 2>(const vec<T, 2>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
+    vec<uint, 2>& operator=(const vec<T, 2>&);
     vec<uint, 2>& operator=(const vec<uint, 2>&);
     vec<uint, 2>(const uint&, const uint&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<uint, 3> : std::array<uint, 3>{
-    static constexpr dim = 3;
+    static constexpr uint dim = 3;
     uint x;
     uint y;
     uint z;
@@ -3541,19 +3584,25 @@ struct vec<uint, 3> : std::array<uint, 3>{
     
     // constructor
     vec<uint, 3>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, uint || std::is_nothrow_convertible_v<uint, T>>)
-    vec<uint, 3>(const vec<T, 3>&);
     vec<uint, 3>(const uint&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
+    vec<uint, 3>(const vec<T, 3>&);
+    template<typename T>
+    explict vec<uint, 3>(const vec<T, 3>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
+    vec<uint, 3>& operator=(const vec<T, 3>&);
     vec<uint, 3>& operator=(const vec<uint, 3>&);
-    vec<uint, 3>(const uint&, const vec<uint, 2>&);
     vec<uint, 3>(const uint&, const uint&, const uint&);
+    vec<uint, 3>(const uint&, const vec<uint, 2>&);
     vec<uint, 3>(const vec<uint, 2>&, const uint&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<uint, 4> : std::array<uint, 4>{
-    static constexpr dim = 4;
+    static constexpr uint dim = 4;
     uint x;
     uint y;
     uint z;
@@ -4577,22 +4626,28 @@ struct vec<uint, 4> : std::array<uint, 4>{
     
     // constructor
     vec<uint, 4>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, uint || std::is_nothrow_convertible_v<uint, T>>)
-    vec<uint, 4>(const vec<T, 4>&);
     vec<uint, 4>(const uint&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
+    vec<uint, 4>(const vec<T, 4>&);
+    template<typename T>
+    explict vec<uint, 4>(const vec<T, 4>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
+    vec<uint, 4>& operator=(const vec<T, 4>&);
     vec<uint, 4>& operator=(const vec<uint, 4>&);
     vec<uint, 4>(const uint&, const vec<uint, 2>&, const uint&);
-    vec<uint, 4>(const uint&, const vec<uint, 3>&);
-    vec<uint, 4>(const vec<uint, 3>&, const uint&);
     vec<uint, 4>(const vec<uint, 2>&, const uint&, const uint&);
+    vec<uint, 4>(const vec<uint, 3>&, const uint&);
     vec<uint, 4>(const uint&, const uint&, const vec<uint, 2>&);
     vec<uint, 4>(const vec<uint, 2>&, const vec<uint, 2>&);
+    vec<uint, 4>(const uint&, const vec<uint, 3>&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<float, 2> : std::array<float, 2>{
-    static constexpr dim = 2;
+    static constexpr uint dim = 2;
     float x;
     float y;
     float r;
@@ -4686,9 +4741,14 @@ struct vec<float, 2> : std::array<float, 2>{
     
     // constructor
     vec<float, 2>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, float || std::is_nothrow_convertible_v<float, T>>)
-    vec<float, 2>(const vec<T, 2>&);
     vec<float, 2>(const float&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
+    vec<float, 2>(const vec<T, 2>&);
+    template<typename T>
+    explict vec<float, 2>(const vec<T, 2>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
+    vec<float, 2>& operator=(const vec<T, 2>&);
     vec<float, 2>& operator=(const vec<float, 2>&);
     vec<float, 2>(const float&, const float&);
 vec<float, 2>(const double&, const double&);
@@ -4697,8 +4757,9 @@ vec<float, 2>(const double&, const double&);
 
 
 // GLSL vector.
+template <>
 struct vec<float, 3> : std::array<float, 3>{
-    static constexpr dim = 3;
+    static constexpr uint dim = 3;
     float x;
     float y;
     float z;
@@ -5062,12 +5123,17 @@ struct vec<float, 3> : std::array<float, 3>{
     
     // constructor
     vec<float, 3>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, float || std::is_nothrow_convertible_v<float, T>>)
-    vec<float, 3>(const vec<T, 3>&);
     vec<float, 3>(const float&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
+    vec<float, 3>(const vec<T, 3>&);
+    template<typename T>
+    explict vec<float, 3>(const vec<T, 3>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
+    vec<float, 3>& operator=(const vec<T, 3>&);
     vec<float, 3>& operator=(const vec<float, 3>&);
-    vec<float, 3>(const float&, const vec<float, 2>&);
     vec<float, 3>(const float&, const float&, const float&);
+    vec<float, 3>(const float&, const vec<float, 2>&);
     vec<float, 3>(const vec<float, 2>&, const float&);
 vec<float, 3>(const double&, const double&, const double&);
 
@@ -5075,8 +5141,9 @@ vec<float, 3>(const double&, const double&, const double&);
 
 
 // GLSL vector.
+template <>
 struct vec<float, 4> : std::array<float, 4>{
-    static constexpr dim = 4;
+    static constexpr uint dim = 4;
     float x;
     float y;
     float z;
@@ -6100,24 +6167,30 @@ struct vec<float, 4> : std::array<float, 4>{
     
     // constructor
     vec<float, 4>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, float || std::is_nothrow_convertible_v<float, T>>)
-    vec<float, 4>(const vec<T, 4>&);
     vec<float, 4>(const float&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
+    vec<float, 4>(const vec<T, 4>&);
+    template<typename T>
+    explict vec<float, 4>(const vec<T, 4>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
+    vec<float, 4>& operator=(const vec<T, 4>&);
     vec<float, 4>& operator=(const vec<float, 4>&);
     vec<float, 4>(const float&, const vec<float, 2>&, const float&);
-    vec<float, 4>(const float&, const vec<float, 3>&);
-    vec<float, 4>(const vec<float, 3>&, const float&);
     vec<float, 4>(const vec<float, 2>&, const float&, const float&);
+    vec<float, 4>(const vec<float, 3>&, const float&);
     vec<float, 4>(const float&, const float&, const vec<float, 2>&);
     vec<float, 4>(const vec<float, 2>&, const vec<float, 2>&);
+    vec<float, 4>(const float&, const vec<float, 3>&);
 vec<float, 4>(const double&, const double&, const double&, const double&);
 
 };
 
 
 // GLSL vector.
+template <>
 struct vec<double, 2> : std::array<double, 2>{
-    static constexpr dim = 2;
+    static constexpr uint dim = 2;
     double x;
     double y;
     double r;
@@ -6211,17 +6284,23 @@ struct vec<double, 2> : std::array<double, 2>{
     
     // constructor
     vec<double, 2>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, double || std::is_nothrow_convertible_v<double, T>>)
-    vec<double, 2>(const vec<T, 2>&);
     vec<double, 2>(const double&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
+    vec<double, 2>(const vec<T, 2>&);
+    template<typename T>
+    explict vec<double, 2>(const vec<T, 2>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
+    vec<double, 2>& operator=(const vec<T, 2>&);
     vec<double, 2>& operator=(const vec<double, 2>&);
     vec<double, 2>(const double&, const double&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<double, 3> : std::array<double, 3>{
-    static constexpr dim = 3;
+    static constexpr uint dim = 3;
     double x;
     double y;
     double z;
@@ -6585,19 +6664,25 @@ struct vec<double, 3> : std::array<double, 3>{
     
     // constructor
     vec<double, 3>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, double || std::is_nothrow_convertible_v<double, T>>)
-    vec<double, 3>(const vec<T, 3>&);
     vec<double, 3>(const double&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
+    vec<double, 3>(const vec<T, 3>&);
+    template<typename T>
+    explict vec<double, 3>(const vec<T, 3>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
+    vec<double, 3>& operator=(const vec<T, 3>&);
     vec<double, 3>& operator=(const vec<double, 3>&);
-    vec<double, 3>(const double&, const vec<double, 2>&);
     vec<double, 3>(const double&, const double&, const double&);
+    vec<double, 3>(const double&, const vec<double, 2>&);
     vec<double, 3>(const vec<double, 2>&, const double&);
 };
 
 
 // GLSL vector.
+template <>
 struct vec<double, 4> : std::array<double, 4>{
-    static constexpr dim = 4;
+    static constexpr uint dim = 4;
     double x;
     double y;
     double z;
@@ -7621,16 +7706,21 @@ struct vec<double, 4> : std::array<double, 4>{
     
     // constructor
     vec<double, 4>();
-    template<typename T> requires(std::is_nothrow_convertible_v<T, double || std::is_nothrow_convertible_v<double, T>>)
-    vec<double, 4>(const vec<T, 4>&);
     vec<double, 4>(const double&);
+
+    template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
+    vec<double, 4>(const vec<T, 4>&);
+    template<typename T>
+    explict vec<double, 4>(const vec<T, 4>&);
+    template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
+    vec<double, 4>& operator=(const vec<T, 4>&);
     vec<double, 4>& operator=(const vec<double, 4>&);
     vec<double, 4>(const double&, const vec<double, 2>&, const double&);
-    vec<double, 4>(const double&, const vec<double, 3>&);
-    vec<double, 4>(const vec<double, 3>&, const double&);
     vec<double, 4>(const vec<double, 2>&, const double&, const double&);
+    vec<double, 4>(const vec<double, 3>&, const double&);
     vec<double, 4>(const double&, const double&, const vec<double, 2>&);
     vec<double, 4>(const vec<double, 2>&, const vec<double, 2>&);
+    vec<double, 4>(const double&, const vec<double, 3>&);
 };
 
 
@@ -8053,24 +8143,24 @@ struct samplerCubeArrayShadow: public ::internal::gshadow, public ::internal::te
 #endif
 
 // clang-format off
-template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage>)
+template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage<typename GImage::value_type>>)
 GImage::itexcoord imageSize(const GImage &);
-template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage>)
+template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage<typename GImage::value_type>>)
 ::internal::vec<typename GImage::value_type, 4> imageLoad(const GImage &, typename GImage::itexcoord);
-template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage>)
+template<typename GImage> requires(::internal::texelFetchAccessable<GImage> && std::derived_from<GImage, ::internal::gimage<typename GImage::value_type>>)
 void imageStore(const GImage &, typename GImage::itexcoord, ::internal::vec<typename GImage::value_type, 4>);
 
-template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
+template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler<typename GSampler::value_type>>)
 GSampler::itexcoord textureSize(const GSampler &, int LOD = 0);
-template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
+template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler<typename GSampler::value_type>>)
 int textureQueryLevels(const GSampler &);
-template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
+template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler<typename GSampler::value_type>>)
 ::internal::vec<typename GSampler::value_type, 4> texture(const GSampler &, typename GSampler::texcoord, float bias​ = 0);
-template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
+template<typename GSampler> requires(::internal::texelFetchAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler<typename GSampler::value_type>>)
 ::internal::vec<typename GSampler::value_type, 4> texelFetch(const GSampler &, typename GSampler::itexcoord, int LOD = 0);
-template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler>)
+template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler<typename GSampler::value_type>>)
 ::internal::vec<typename GSampler::value_type, 4> textureLod(const GSampler &, typename GSampler::texcoord, float);
-template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler> && ::internal::texelFetchAccessable<GSampler>)
+template<typename GSampler> requires(::internal::textureAccessable<GSampler> && std::derived_from<GSampler, ::internal::gsampler<typename GSampler::value_type>> && ::internal::texelFetchAccessable<GSampler>)
 ::internal::vec<typename GSampler::value_type, 4> textureOffset(const GSampler &, typename GSampler::texcoord, typename GSampler::itexcoord, float bias​ = 0);
 
 template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
@@ -8079,7 +8169,7 @@ template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> &&
 int textureQueryLevels(const GShadow &);
 template<typename GShadow> requires(::internal::textureAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
 GShadow::value_type texture(const GShadow &, typename GShadow::texcoord, float bias​ = 0);
-template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> && std::derived_from<GShadow, ::internal::gsampler>)
+template<typename GShadow> requires(::internal::texelFetchAccessable<GShadow> && std::derived_from<GShadow, ::internal::gsampler<typename GSampler::value_type>>)
 GShadow::value_type texelFetch(const GShadow &, typename GShadow::itexcoord, int LOD = 0);
 template<typename GShadow> requires(::internal::textureAccessable<GShadow> && std::derived_from<GShadow, ::internal::gshadow>)
 GShadow::value_type textureLod(const GShadow &, typename GShadow::texcoord, float);
@@ -8135,6 +8225,14 @@ template <typename genType, uint N>
 ::internal::vec<genType, N> operator*(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
 template <typename genType, uint N>
 ::internal::vec<genType, N> operator/(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator+=(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator-=(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator*=(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator/=(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
 template <typename genType, uint N>
 ::internal::vec<genType, N> operator+(const genType &, const ::internal::vec<genType, N> &);
 template <typename genType, uint N>
@@ -8216,6 +8314,11 @@ template<typename genType, uint N> ::internal::vec<genType, N> sign(const ::inte
 template<typename genType, uint N> ::internal::vec<float, N> invsqrt(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> ::internal::vec<float, N> normalize(const ::internal::vec<genType, N>&);
 
+template<uint N> ::internal::vec<float, N> intBitsToFloat(const ::internal::vec<int, N>&);
+template<uint N> ::internal::vec<float, N> uintBitsToFloat(const ::internal::vec<uint, N>&);
+template<uint N> ::internal::vec<int, N> floatBitsToInt(const ::internal::vec<float, N>&);
+template<uint N> ::internal::vec<uint, N> floatBitsToUint(const ::internal::vec<float, N>&);
+
 template<typename genType, uint N> float length(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> float dot(const ::internal::vec<genType, N>&, const ::internal::vec<genType, N>&);
 template<typename genType, uint N> float distance(const ::internal::vec<genType, N>&, const ::internal::vec<genType, N>&);
@@ -8224,6 +8327,16 @@ template<typename genType, uint N> float distance(const ::internal::vec<genType,
 vec3 cross(vec3, vec3);
 vec3 reflect(vec3 I, vec3 N);
 vec3 refract(vec3 I, vec3 N, float eta);
+
+uint packUnorm2x16(vec2 v);
+uint packSnorm2x16(vec2 v);
+uint packUnorm4x8(vec4 v);
+uint packSnorm4x8(vec4 v);
+
+vec2 unpackUnorm2x16(uint v);
+vec2 unpackSnorm2x16(uint v);
+vec4 unpackUnorm4x8(uint v);
+vec4 unpackSnorm4x8(uint v);
 
 #endif
 #endif
