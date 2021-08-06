@@ -130,16 +130,16 @@ struct vec<bool, 2> : std::array<bool, 2>{
     
     // constructor
     vec<bool, 2>();
-    vec<bool, 2>(const bool&);
+    vec<bool, 2>(bool);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
-    vec<bool, 2>(const vec<T, 2>&);
-    template<typename T> requires(!std::is_same_v<T, bool>)
-    explict vec<bool, 2>(const vec<T, 2>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
-    vec<bool, 2>& operator=(const vec<T, 2>&);
-    vec<bool, 2>& operator=(const vec<bool, 2>&);
-    vec<bool, 2>(const bool&, const bool&);
+    vec<bool, 2>(const vec<bool, 2>&);
+    template<typename T>
+    vec<bool, 2>(vec<T, 2>);
+    vec<bool, 2>& operator=(vec<bool, 2>);
+    template<typename T>
+    vec<bool, 2>& operator=(vec<T, 2>);
+    template<typename T>
+    vec<bool, 2>(T, T);
 };
 
 
@@ -510,18 +510,20 @@ struct vec<bool, 3> : std::array<bool, 3>{
     
     // constructor
     vec<bool, 3>();
-    vec<bool, 3>(const bool&);
+    vec<bool, 3>(bool);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
-    vec<bool, 3>(const vec<T, 3>&);
-    template<typename T> requires(!std::is_same_v<T, bool>)
-    explict vec<bool, 3>(const vec<T, 3>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
-    vec<bool, 3>& operator=(const vec<T, 3>&);
-    vec<bool, 3>& operator=(const vec<bool, 3>&);
-    vec<bool, 3>(const bool&, const bool&, const bool&);
-    vec<bool, 3>(const bool&, const vec<bool, 2>&);
-    vec<bool, 3>(const vec<bool, 2>&, const bool&);
+    vec<bool, 3>(const vec<bool, 3>&);
+    template<typename T>
+    vec<bool, 3>(vec<T, 3>);
+    vec<bool, 3>& operator=(vec<bool, 3>);
+    template<typename T>
+    vec<bool, 3>& operator=(vec<T, 3>);
+    template<typename T>
+    vec<bool, 3>(T, T, T);
+    template<typename T>
+    vec<bool, 3>(T, vec<T, 2>);
+    template<typename T>
+    vec<bool, 3>(vec<T, 2>, T);
 };
 
 
@@ -1552,21 +1554,28 @@ struct vec<bool, 4> : std::array<bool, 4>{
     
     // constructor
     vec<bool, 4>();
-    vec<bool, 4>(const bool&);
+    vec<bool, 4>(bool);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, bool>)
-    vec<bool, 4>(const vec<T, 4>&);
-    template<typename T> requires(!std::is_same_v<T, bool>)
-    explict vec<bool, 4>(const vec<T, 4>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<bool, T> || std::is_nothrow_convertible_v<T, bool>)
-    vec<bool, 4>& operator=(const vec<T, 4>&);
-    vec<bool, 4>& operator=(const vec<bool, 4>&);
-    vec<bool, 4>(const bool&, const vec<bool, 2>&, const bool&);
-    vec<bool, 4>(const vec<bool, 2>&, const bool&, const bool&);
-    vec<bool, 4>(const vec<bool, 3>&, const bool&);
-    vec<bool, 4>(const bool&, const bool&, const vec<bool, 2>&);
-    vec<bool, 4>(const vec<bool, 2>&, const vec<bool, 2>&);
-    vec<bool, 4>(const bool&, const vec<bool, 3>&);
+    vec<bool, 4>(const vec<bool, 4>&);
+    template<typename T>
+    vec<bool, 4>(vec<T, 4>);
+    vec<bool, 4>& operator=(vec<bool, 4>);
+    template<typename T>
+    vec<bool, 4>& operator=(vec<T, 4>);
+    template<typename T>
+    vec<bool, 4>(T, vec<T, 2>, T);
+    template<typename T>
+    vec<bool, 4>(vec<T, 2>, T, T);
+    template<typename T>
+    vec<bool, 4>(vec<T, 3>, T);
+    template<typename T>
+    vec<bool, 4>(T, T, vec<T, 2>);
+    template<typename T>
+    vec<bool, 4>(vec<T, 2>, vec<T, 2>);
+    template<typename T>
+    vec<bool, 4>(T, vec<T, 3>);
+    template<typename T>
+    vec<bool, 4>(T, T, T, T);
 };
 
 
@@ -1667,16 +1676,16 @@ struct vec<int, 2> : std::array<int, 2>{
     
     // constructor
     vec<int, 2>();
-    vec<int, 2>(const int&);
+    vec<int, 2>(int);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
-    vec<int, 2>(const vec<T, 2>&);
-    template<typename T> requires(!std::is_same_v<T, int>)
-    explict vec<int, 2>(const vec<T, 2>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
-    vec<int, 2>& operator=(const vec<T, 2>&);
-    vec<int, 2>& operator=(const vec<int, 2>&);
-    vec<int, 2>(const int&, const int&);
+    vec<int, 2>(const vec<int, 2>&);
+    template<typename T>
+    vec<int, 2>(vec<T, 2>);
+    vec<int, 2>& operator=(vec<int, 2>);
+    template<typename T>
+    vec<int, 2>& operator=(vec<T, 2>);
+    template<typename T>
+    vec<int, 2>(T, T);
 };
 
 
@@ -2047,18 +2056,20 @@ struct vec<int, 3> : std::array<int, 3>{
     
     // constructor
     vec<int, 3>();
-    vec<int, 3>(const int&);
+    vec<int, 3>(int);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
-    vec<int, 3>(const vec<T, 3>&);
-    template<typename T> requires(!std::is_same_v<T, int>)
-    explict vec<int, 3>(const vec<T, 3>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
-    vec<int, 3>& operator=(const vec<T, 3>&);
-    vec<int, 3>& operator=(const vec<int, 3>&);
-    vec<int, 3>(const int&, const int&, const int&);
-    vec<int, 3>(const int&, const vec<int, 2>&);
-    vec<int, 3>(const vec<int, 2>&, const int&);
+    vec<int, 3>(const vec<int, 3>&);
+    template<typename T>
+    vec<int, 3>(vec<T, 3>);
+    vec<int, 3>& operator=(vec<int, 3>);
+    template<typename T>
+    vec<int, 3>& operator=(vec<T, 3>);
+    template<typename T>
+    vec<int, 3>(T, T, T);
+    template<typename T>
+    vec<int, 3>(T, vec<T, 2>);
+    template<typename T>
+    vec<int, 3>(vec<T, 2>, T);
 };
 
 
@@ -3089,21 +3100,28 @@ struct vec<int, 4> : std::array<int, 4>{
     
     // constructor
     vec<int, 4>();
-    vec<int, 4>(const int&);
+    vec<int, 4>(int);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, int>)
-    vec<int, 4>(const vec<T, 4>&);
-    template<typename T> requires(!std::is_same_v<T, int>)
-    explict vec<int, 4>(const vec<T, 4>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<int, T> || std::is_nothrow_convertible_v<T, int>)
-    vec<int, 4>& operator=(const vec<T, 4>&);
-    vec<int, 4>& operator=(const vec<int, 4>&);
-    vec<int, 4>(const int&, const vec<int, 2>&, const int&);
-    vec<int, 4>(const vec<int, 2>&, const int&, const int&);
-    vec<int, 4>(const vec<int, 3>&, const int&);
-    vec<int, 4>(const int&, const int&, const vec<int, 2>&);
-    vec<int, 4>(const vec<int, 2>&, const vec<int, 2>&);
-    vec<int, 4>(const int&, const vec<int, 3>&);
+    vec<int, 4>(const vec<int, 4>&);
+    template<typename T>
+    vec<int, 4>(vec<T, 4>);
+    vec<int, 4>& operator=(vec<int, 4>);
+    template<typename T>
+    vec<int, 4>& operator=(vec<T, 4>);
+    template<typename T>
+    vec<int, 4>(T, vec<T, 2>, T);
+    template<typename T>
+    vec<int, 4>(vec<T, 2>, T, T);
+    template<typename T>
+    vec<int, 4>(vec<T, 3>, T);
+    template<typename T>
+    vec<int, 4>(T, T, vec<T, 2>);
+    template<typename T>
+    vec<int, 4>(vec<T, 2>, vec<T, 2>);
+    template<typename T>
+    vec<int, 4>(T, vec<T, 3>);
+    template<typename T>
+    vec<int, 4>(T, T, T, T);
 };
 
 
@@ -3204,16 +3222,16 @@ struct vec<uint, 2> : std::array<uint, 2>{
     
     // constructor
     vec<uint, 2>();
-    vec<uint, 2>(const uint&);
+    vec<uint, 2>(uint);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
-    vec<uint, 2>(const vec<T, 2>&);
-    template<typename T> requires(!std::is_same_v<T, uint>)
-    explict vec<uint, 2>(const vec<T, 2>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
-    vec<uint, 2>& operator=(const vec<T, 2>&);
-    vec<uint, 2>& operator=(const vec<uint, 2>&);
-    vec<uint, 2>(const uint&, const uint&);
+    vec<uint, 2>(const vec<uint, 2>&);
+    template<typename T>
+    vec<uint, 2>(vec<T, 2>);
+    vec<uint, 2>& operator=(vec<uint, 2>);
+    template<typename T>
+    vec<uint, 2>& operator=(vec<T, 2>);
+    template<typename T>
+    vec<uint, 2>(T, T);
 };
 
 
@@ -3584,18 +3602,20 @@ struct vec<uint, 3> : std::array<uint, 3>{
     
     // constructor
     vec<uint, 3>();
-    vec<uint, 3>(const uint&);
+    vec<uint, 3>(uint);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
-    vec<uint, 3>(const vec<T, 3>&);
-    template<typename T> requires(!std::is_same_v<T, uint>)
-    explict vec<uint, 3>(const vec<T, 3>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
-    vec<uint, 3>& operator=(const vec<T, 3>&);
-    vec<uint, 3>& operator=(const vec<uint, 3>&);
-    vec<uint, 3>(const uint&, const uint&, const uint&);
-    vec<uint, 3>(const uint&, const vec<uint, 2>&);
-    vec<uint, 3>(const vec<uint, 2>&, const uint&);
+    vec<uint, 3>(const vec<uint, 3>&);
+    template<typename T>
+    vec<uint, 3>(vec<T, 3>);
+    vec<uint, 3>& operator=(vec<uint, 3>);
+    template<typename T>
+    vec<uint, 3>& operator=(vec<T, 3>);
+    template<typename T>
+    vec<uint, 3>(T, T, T);
+    template<typename T>
+    vec<uint, 3>(T, vec<T, 2>);
+    template<typename T>
+    vec<uint, 3>(vec<T, 2>, T);
 };
 
 
@@ -4626,21 +4646,28 @@ struct vec<uint, 4> : std::array<uint, 4>{
     
     // constructor
     vec<uint, 4>();
-    vec<uint, 4>(const uint&);
+    vec<uint, 4>(uint);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, uint>)
-    vec<uint, 4>(const vec<T, 4>&);
-    template<typename T> requires(!std::is_same_v<T, uint>)
-    explict vec<uint, 4>(const vec<T, 4>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<uint, T> || std::is_nothrow_convertible_v<T, uint>)
-    vec<uint, 4>& operator=(const vec<T, 4>&);
-    vec<uint, 4>& operator=(const vec<uint, 4>&);
-    vec<uint, 4>(const uint&, const vec<uint, 2>&, const uint&);
-    vec<uint, 4>(const vec<uint, 2>&, const uint&, const uint&);
-    vec<uint, 4>(const vec<uint, 3>&, const uint&);
-    vec<uint, 4>(const uint&, const uint&, const vec<uint, 2>&);
-    vec<uint, 4>(const vec<uint, 2>&, const vec<uint, 2>&);
-    vec<uint, 4>(const uint&, const vec<uint, 3>&);
+    vec<uint, 4>(const vec<uint, 4>&);
+    template<typename T>
+    vec<uint, 4>(vec<T, 4>);
+    vec<uint, 4>& operator=(vec<uint, 4>);
+    template<typename T>
+    vec<uint, 4>& operator=(vec<T, 4>);
+    template<typename T>
+    vec<uint, 4>(T, vec<T, 2>, T);
+    template<typename T>
+    vec<uint, 4>(vec<T, 2>, T, T);
+    template<typename T>
+    vec<uint, 4>(vec<T, 3>, T);
+    template<typename T>
+    vec<uint, 4>(T, T, vec<T, 2>);
+    template<typename T>
+    vec<uint, 4>(vec<T, 2>, vec<T, 2>);
+    template<typename T>
+    vec<uint, 4>(T, vec<T, 3>);
+    template<typename T>
+    vec<uint, 4>(T, T, T, T);
 };
 
 
@@ -4741,18 +4768,16 @@ struct vec<float, 2> : std::array<float, 2>{
     
     // constructor
     vec<float, 2>();
-    vec<float, 2>(const float&);
+    vec<float, 2>(float);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
-    vec<float, 2>(const vec<T, 2>&);
-    template<typename T> requires(!std::is_same_v<T, float>)
-    explict vec<float, 2>(const vec<T, 2>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
-    vec<float, 2>& operator=(const vec<T, 2>&);
-    vec<float, 2>& operator=(const vec<float, 2>&);
-    vec<float, 2>(const float&, const float&);
-vec<float, 2>(const double&, const double&);
-
+    vec<float, 2>(const vec<float, 2>&);
+    template<typename T>
+    vec<float, 2>(vec<T, 2>);
+    vec<float, 2>& operator=(vec<float, 2>);
+    template<typename T>
+    vec<float, 2>& operator=(vec<T, 2>);
+    template<typename T>
+    vec<float, 2>(T, T);
 };
 
 
@@ -5123,20 +5148,20 @@ struct vec<float, 3> : std::array<float, 3>{
     
     // constructor
     vec<float, 3>();
-    vec<float, 3>(const float&);
+    vec<float, 3>(float);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
-    vec<float, 3>(const vec<T, 3>&);
-    template<typename T> requires(!std::is_same_v<T, float>)
-    explict vec<float, 3>(const vec<T, 3>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
-    vec<float, 3>& operator=(const vec<T, 3>&);
-    vec<float, 3>& operator=(const vec<float, 3>&);
-    vec<float, 3>(const float&, const float&, const float&);
-    vec<float, 3>(const float&, const vec<float, 2>&);
-    vec<float, 3>(const vec<float, 2>&, const float&);
-vec<float, 3>(const double&, const double&, const double&);
-
+    vec<float, 3>(const vec<float, 3>&);
+    template<typename T>
+    vec<float, 3>(vec<T, 3>);
+    vec<float, 3>& operator=(vec<float, 3>);
+    template<typename T>
+    vec<float, 3>& operator=(vec<T, 3>);
+    template<typename T>
+    vec<float, 3>(T, T, T);
+    template<typename T>
+    vec<float, 3>(T, vec<T, 2>);
+    template<typename T>
+    vec<float, 3>(vec<T, 2>, T);
 };
 
 
@@ -6167,23 +6192,28 @@ struct vec<float, 4> : std::array<float, 4>{
     
     // constructor
     vec<float, 4>();
-    vec<float, 4>(const float&);
+    vec<float, 4>(float);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, float>)
-    vec<float, 4>(const vec<T, 4>&);
-    template<typename T> requires(!std::is_same_v<T, float>)
-    explict vec<float, 4>(const vec<T, 4>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<float, T> || std::is_nothrow_convertible_v<T, float>)
-    vec<float, 4>& operator=(const vec<T, 4>&);
-    vec<float, 4>& operator=(const vec<float, 4>&);
-    vec<float, 4>(const float&, const vec<float, 2>&, const float&);
-    vec<float, 4>(const vec<float, 2>&, const float&, const float&);
-    vec<float, 4>(const vec<float, 3>&, const float&);
-    vec<float, 4>(const float&, const float&, const vec<float, 2>&);
-    vec<float, 4>(const vec<float, 2>&, const vec<float, 2>&);
-    vec<float, 4>(const float&, const vec<float, 3>&);
-vec<float, 4>(const double&, const double&, const double&, const double&);
-
+    vec<float, 4>(const vec<float, 4>&);
+    template<typename T>
+    vec<float, 4>(vec<T, 4>);
+    vec<float, 4>& operator=(vec<float, 4>);
+    template<typename T>
+    vec<float, 4>& operator=(vec<T, 4>);
+    template<typename T>
+    vec<float, 4>(T, vec<T, 2>, T);
+    template<typename T>
+    vec<float, 4>(vec<T, 2>, T, T);
+    template<typename T>
+    vec<float, 4>(vec<T, 3>, T);
+    template<typename T>
+    vec<float, 4>(T, T, vec<T, 2>);
+    template<typename T>
+    vec<float, 4>(vec<T, 2>, vec<T, 2>);
+    template<typename T>
+    vec<float, 4>(T, vec<T, 3>);
+    template<typename T>
+    vec<float, 4>(T, T, T, T);
 };
 
 
@@ -6284,16 +6314,16 @@ struct vec<double, 2> : std::array<double, 2>{
     
     // constructor
     vec<double, 2>();
-    vec<double, 2>(const double&);
+    vec<double, 2>(double);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
-    vec<double, 2>(const vec<T, 2>&);
-    template<typename T> requires(!std::is_same_v<T, double>)
-    explict vec<double, 2>(const vec<T, 2>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
-    vec<double, 2>& operator=(const vec<T, 2>&);
-    vec<double, 2>& operator=(const vec<double, 2>&);
-    vec<double, 2>(const double&, const double&);
+    vec<double, 2>(const vec<double, 2>&);
+    template<typename T>
+    vec<double, 2>(vec<T, 2>);
+    vec<double, 2>& operator=(vec<double, 2>);
+    template<typename T>
+    vec<double, 2>& operator=(vec<T, 2>);
+    template<typename T>
+    vec<double, 2>(T, T);
 };
 
 
@@ -6664,18 +6694,20 @@ struct vec<double, 3> : std::array<double, 3>{
     
     // constructor
     vec<double, 3>();
-    vec<double, 3>(const double&);
+    vec<double, 3>(double);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
-    vec<double, 3>(const vec<T, 3>&);
-    template<typename T> requires(!std::is_same_v<T, double>)
-    explict vec<double, 3>(const vec<T, 3>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
-    vec<double, 3>& operator=(const vec<T, 3>&);
-    vec<double, 3>& operator=(const vec<double, 3>&);
-    vec<double, 3>(const double&, const double&, const double&);
-    vec<double, 3>(const double&, const vec<double, 2>&);
-    vec<double, 3>(const vec<double, 2>&, const double&);
+    vec<double, 3>(const vec<double, 3>&);
+    template<typename T>
+    vec<double, 3>(vec<T, 3>);
+    vec<double, 3>& operator=(vec<double, 3>);
+    template<typename T>
+    vec<double, 3>& operator=(vec<T, 3>);
+    template<typename T>
+    vec<double, 3>(T, T, T);
+    template<typename T>
+    vec<double, 3>(T, vec<T, 2>);
+    template<typename T>
+    vec<double, 3>(vec<T, 2>, T);
 };
 
 
@@ -7706,21 +7738,28 @@ struct vec<double, 4> : std::array<double, 4>{
     
     // constructor
     vec<double, 4>();
-    vec<double, 4>(const double&);
+    vec<double, 4>(double);
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, double>)
-    vec<double, 4>(const vec<T, 4>&);
-    template<typename T> requires(!std::is_same_v<T, double>)
-    explict vec<double, 4>(const vec<T, 4>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<double, T> || std::is_nothrow_convertible_v<T, double>)
-    vec<double, 4>& operator=(const vec<T, 4>&);
-    vec<double, 4>& operator=(const vec<double, 4>&);
-    vec<double, 4>(const double&, const vec<double, 2>&, const double&);
-    vec<double, 4>(const vec<double, 2>&, const double&, const double&);
-    vec<double, 4>(const vec<double, 3>&, const double&);
-    vec<double, 4>(const double&, const double&, const vec<double, 2>&);
-    vec<double, 4>(const vec<double, 2>&, const vec<double, 2>&);
-    vec<double, 4>(const double&, const vec<double, 3>&);
+    vec<double, 4>(const vec<double, 4>&);
+    template<typename T>
+    vec<double, 4>(vec<T, 4>);
+    vec<double, 4>& operator=(vec<double, 4>);
+    template<typename T>
+    vec<double, 4>& operator=(vec<T, 4>);
+    template<typename T>
+    vec<double, 4>(T, vec<T, 2>, T);
+    template<typename T>
+    vec<double, 4>(vec<T, 2>, T, T);
+    template<typename T>
+    vec<double, 4>(vec<T, 3>, T);
+    template<typename T>
+    vec<double, 4>(T, T, vec<T, 2>);
+    template<typename T>
+    vec<double, 4>(vec<T, 2>, vec<T, 2>);
+    template<typename T>
+    vec<double, 4>(T, vec<T, 3>);
+    template<typename T>
+    vec<double, 4>(T, T, T, T);
 };
 
 
@@ -7729,11 +7768,11 @@ struct vec<double, 4> : std::array<double, 4>{
 struct mat<float, 2, 2> : std::array<vec<float, 2>, 2>{
     // constructor
     mat<float, 2, 2>();
-    mat<float, 2, 2>(const float&);
-    mat<float, 2, 2>(const float&, const float&, const float&, const float&);
-    mat<float, 2, 2>(const vec<float, M>&, const vec<float, M>&);
+    mat<float, 2, 2>(float);
+    mat<float, 2, 2>(float, float, float, float);
+    mat<float, 2, 2>(vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 2, 2>(const mat<float, NN, MM>);
+    mat<float, 2, 2>(mat<float, NN, MM>);
 
 };
 
@@ -7742,11 +7781,11 @@ struct mat<float, 2, 2> : std::array<vec<float, 2>, 2>{
 struct mat<float, 3, 2> : std::array<vec<float, 2>, 3>{
     // constructor
     mat<float, 3, 2>();
-    mat<float, 3, 2>(const float&);
-    mat<float, 3, 2>(const float&, const float&, const float&, const float&, const float&, const float&);
-    mat<float, 3, 2>(const vec<float, M>&, const vec<float, M>&, const vec<float, M>&);
+    mat<float, 3, 2>(float);
+    mat<float, 3, 2>(float, float, float, float, float, float);
+    mat<float, 3, 2>(vec<float, M>, vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 3, 2>(const mat<float, NN, MM>);
+    mat<float, 3, 2>(mat<float, NN, MM>);
 
 };
 
@@ -7755,11 +7794,11 @@ struct mat<float, 3, 2> : std::array<vec<float, 2>, 3>{
 struct mat<float, 4, 2> : std::array<vec<float, 2>, 4>{
     // constructor
     mat<float, 4, 2>();
-    mat<float, 4, 2>(const float&);
-    mat<float, 4, 2>(const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&);
-    mat<float, 4, 2>(const vec<float, M>&, const vec<float, M>&, const vec<float, M>&, const vec<float, M>&);
+    mat<float, 4, 2>(float);
+    mat<float, 4, 2>(float, float, float, float, float, float, float, float);
+    mat<float, 4, 2>(vec<float, M>, vec<float, M>, vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 4, 2>(const mat<float, NN, MM>);
+    mat<float, 4, 2>(mat<float, NN, MM>);
 
 };
 
@@ -7768,11 +7807,11 @@ struct mat<float, 4, 2> : std::array<vec<float, 2>, 4>{
 struct mat<float, 2, 3> : std::array<vec<float, 3>, 2>{
     // constructor
     mat<float, 2, 3>();
-    mat<float, 2, 3>(const float&);
-    mat<float, 2, 3>(const float&, const float&, const float&, const float&, const float&, const float&);
-    mat<float, 2, 3>(const vec<float, M>&, const vec<float, M>&);
+    mat<float, 2, 3>(float);
+    mat<float, 2, 3>(float, float, float, float, float, float);
+    mat<float, 2, 3>(vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 2, 3>(const mat<float, NN, MM>);
+    mat<float, 2, 3>(mat<float, NN, MM>);
 
 };
 
@@ -7781,11 +7820,11 @@ struct mat<float, 2, 3> : std::array<vec<float, 3>, 2>{
 struct mat<float, 3, 3> : std::array<vec<float, 3>, 3>{
     // constructor
     mat<float, 3, 3>();
-    mat<float, 3, 3>(const float&);
-    mat<float, 3, 3>(const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&);
-    mat<float, 3, 3>(const vec<float, M>&, const vec<float, M>&, const vec<float, M>&);
+    mat<float, 3, 3>(float);
+    mat<float, 3, 3>(float, float, float, float, float, float, float, float, float);
+    mat<float, 3, 3>(vec<float, M>, vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 3, 3>(const mat<float, NN, MM>);
+    mat<float, 3, 3>(mat<float, NN, MM>);
 
 };
 
@@ -7794,11 +7833,11 @@ struct mat<float, 3, 3> : std::array<vec<float, 3>, 3>{
 struct mat<float, 4, 3> : std::array<vec<float, 3>, 4>{
     // constructor
     mat<float, 4, 3>();
-    mat<float, 4, 3>(const float&);
-    mat<float, 4, 3>(const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&);
-    mat<float, 4, 3>(const vec<float, M>&, const vec<float, M>&, const vec<float, M>&, const vec<float, M>&);
+    mat<float, 4, 3>(float);
+    mat<float, 4, 3>(float, float, float, float, float, float, float, float, float, float, float, float);
+    mat<float, 4, 3>(vec<float, M>, vec<float, M>, vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 4, 3>(const mat<float, NN, MM>);
+    mat<float, 4, 3>(mat<float, NN, MM>);
 
 };
 
@@ -7807,11 +7846,11 @@ struct mat<float, 4, 3> : std::array<vec<float, 3>, 4>{
 struct mat<float, 2, 4> : std::array<vec<float, 4>, 2>{
     // constructor
     mat<float, 2, 4>();
-    mat<float, 2, 4>(const float&);
-    mat<float, 2, 4>(const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&);
-    mat<float, 2, 4>(const vec<float, M>&, const vec<float, M>&);
+    mat<float, 2, 4>(float);
+    mat<float, 2, 4>(float, float, float, float, float, float, float, float);
+    mat<float, 2, 4>(vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 2, 4>(const mat<float, NN, MM>);
+    mat<float, 2, 4>(mat<float, NN, MM>);
 
 };
 
@@ -7820,11 +7859,11 @@ struct mat<float, 2, 4> : std::array<vec<float, 4>, 2>{
 struct mat<float, 3, 4> : std::array<vec<float, 4>, 3>{
     // constructor
     mat<float, 3, 4>();
-    mat<float, 3, 4>(const float&);
-    mat<float, 3, 4>(const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&);
-    mat<float, 3, 4>(const vec<float, M>&, const vec<float, M>&, const vec<float, M>&);
+    mat<float, 3, 4>(float);
+    mat<float, 3, 4>(float, float, float, float, float, float, float, float, float, float, float, float);
+    mat<float, 3, 4>(vec<float, M>, vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 3, 4>(const mat<float, NN, MM>);
+    mat<float, 3, 4>(mat<float, NN, MM>);
 
 };
 
@@ -7833,11 +7872,11 @@ struct mat<float, 3, 4> : std::array<vec<float, 4>, 3>{
 struct mat<float, 4, 4> : std::array<vec<float, 4>, 4>{
     // constructor
     mat<float, 4, 4>();
-    mat<float, 4, 4>(const float&);
-    mat<float, 4, 4>(const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&, const float&);
-    mat<float, 4, 4>(const vec<float, M>&, const vec<float, M>&, const vec<float, M>&, const vec<float, M>&);
+    mat<float, 4, 4>(float);
+    mat<float, 4, 4>(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float);
+    mat<float, 4, 4>(vec<float, M>, vec<float, M>, vec<float, M>, vec<float, M>);
     template<uint NN, uint MM>
-    mat<float, 4, 4>(const mat<float, NN, MM>);
+    mat<float, 4, 4>(mat<float, NN, MM>);
 
 };
 
@@ -7846,11 +7885,11 @@ struct mat<float, 4, 4> : std::array<vec<float, 4>, 4>{
 struct mat<double, 2, 2> : std::array<vec<double, 2>, 2>{
     // constructor
     mat<double, 2, 2>();
-    mat<double, 2, 2>(const double&);
-    mat<double, 2, 2>(const double&, const double&, const double&, const double&);
-    mat<double, 2, 2>(const vec<double, M>&, const vec<double, M>&);
+    mat<double, 2, 2>(double);
+    mat<double, 2, 2>(double, double, double, double);
+    mat<double, 2, 2>(vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 2, 2>(const mat<double, NN, MM>);
+    mat<double, 2, 2>(mat<double, NN, MM>);
 
 };
 
@@ -7859,11 +7898,11 @@ struct mat<double, 2, 2> : std::array<vec<double, 2>, 2>{
 struct mat<double, 3, 2> : std::array<vec<double, 2>, 3>{
     // constructor
     mat<double, 3, 2>();
-    mat<double, 3, 2>(const double&);
-    mat<double, 3, 2>(const double&, const double&, const double&, const double&, const double&, const double&);
-    mat<double, 3, 2>(const vec<double, M>&, const vec<double, M>&, const vec<double, M>&);
+    mat<double, 3, 2>(double);
+    mat<double, 3, 2>(double, double, double, double, double, double);
+    mat<double, 3, 2>(vec<double, M>, vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 3, 2>(const mat<double, NN, MM>);
+    mat<double, 3, 2>(mat<double, NN, MM>);
 
 };
 
@@ -7872,11 +7911,11 @@ struct mat<double, 3, 2> : std::array<vec<double, 2>, 3>{
 struct mat<double, 4, 2> : std::array<vec<double, 2>, 4>{
     // constructor
     mat<double, 4, 2>();
-    mat<double, 4, 2>(const double&);
-    mat<double, 4, 2>(const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&);
-    mat<double, 4, 2>(const vec<double, M>&, const vec<double, M>&, const vec<double, M>&, const vec<double, M>&);
+    mat<double, 4, 2>(double);
+    mat<double, 4, 2>(double, double, double, double, double, double, double, double);
+    mat<double, 4, 2>(vec<double, M>, vec<double, M>, vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 4, 2>(const mat<double, NN, MM>);
+    mat<double, 4, 2>(mat<double, NN, MM>);
 
 };
 
@@ -7885,11 +7924,11 @@ struct mat<double, 4, 2> : std::array<vec<double, 2>, 4>{
 struct mat<double, 2, 3> : std::array<vec<double, 3>, 2>{
     // constructor
     mat<double, 2, 3>();
-    mat<double, 2, 3>(const double&);
-    mat<double, 2, 3>(const double&, const double&, const double&, const double&, const double&, const double&);
-    mat<double, 2, 3>(const vec<double, M>&, const vec<double, M>&);
+    mat<double, 2, 3>(double);
+    mat<double, 2, 3>(double, double, double, double, double, double);
+    mat<double, 2, 3>(vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 2, 3>(const mat<double, NN, MM>);
+    mat<double, 2, 3>(mat<double, NN, MM>);
 
 };
 
@@ -7898,11 +7937,11 @@ struct mat<double, 2, 3> : std::array<vec<double, 3>, 2>{
 struct mat<double, 3, 3> : std::array<vec<double, 3>, 3>{
     // constructor
     mat<double, 3, 3>();
-    mat<double, 3, 3>(const double&);
-    mat<double, 3, 3>(const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&);
-    mat<double, 3, 3>(const vec<double, M>&, const vec<double, M>&, const vec<double, M>&);
+    mat<double, 3, 3>(double);
+    mat<double, 3, 3>(double, double, double, double, double, double, double, double, double);
+    mat<double, 3, 3>(vec<double, M>, vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 3, 3>(const mat<double, NN, MM>);
+    mat<double, 3, 3>(mat<double, NN, MM>);
 
 };
 
@@ -7911,11 +7950,11 @@ struct mat<double, 3, 3> : std::array<vec<double, 3>, 3>{
 struct mat<double, 4, 3> : std::array<vec<double, 3>, 4>{
     // constructor
     mat<double, 4, 3>();
-    mat<double, 4, 3>(const double&);
-    mat<double, 4, 3>(const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&);
-    mat<double, 4, 3>(const vec<double, M>&, const vec<double, M>&, const vec<double, M>&, const vec<double, M>&);
+    mat<double, 4, 3>(double);
+    mat<double, 4, 3>(double, double, double, double, double, double, double, double, double, double, double, double);
+    mat<double, 4, 3>(vec<double, M>, vec<double, M>, vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 4, 3>(const mat<double, NN, MM>);
+    mat<double, 4, 3>(mat<double, NN, MM>);
 
 };
 
@@ -7924,11 +7963,11 @@ struct mat<double, 4, 3> : std::array<vec<double, 3>, 4>{
 struct mat<double, 2, 4> : std::array<vec<double, 4>, 2>{
     // constructor
     mat<double, 2, 4>();
-    mat<double, 2, 4>(const double&);
-    mat<double, 2, 4>(const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&);
-    mat<double, 2, 4>(const vec<double, M>&, const vec<double, M>&);
+    mat<double, 2, 4>(double);
+    mat<double, 2, 4>(double, double, double, double, double, double, double, double);
+    mat<double, 2, 4>(vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 2, 4>(const mat<double, NN, MM>);
+    mat<double, 2, 4>(mat<double, NN, MM>);
 
 };
 
@@ -7937,11 +7976,11 @@ struct mat<double, 2, 4> : std::array<vec<double, 4>, 2>{
 struct mat<double, 3, 4> : std::array<vec<double, 4>, 3>{
     // constructor
     mat<double, 3, 4>();
-    mat<double, 3, 4>(const double&);
-    mat<double, 3, 4>(const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&);
-    mat<double, 3, 4>(const vec<double, M>&, const vec<double, M>&, const vec<double, M>&);
+    mat<double, 3, 4>(double);
+    mat<double, 3, 4>(double, double, double, double, double, double, double, double, double, double, double, double);
+    mat<double, 3, 4>(vec<double, M>, vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 3, 4>(const mat<double, NN, MM>);
+    mat<double, 3, 4>(mat<double, NN, MM>);
 
 };
 
@@ -7950,11 +7989,11 @@ struct mat<double, 3, 4> : std::array<vec<double, 4>, 3>{
 struct mat<double, 4, 4> : std::array<vec<double, 4>, 4>{
     // constructor
     mat<double, 4, 4>();
-    mat<double, 4, 4>(const double&);
-    mat<double, 4, 4>(const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&, const double&);
-    mat<double, 4, 4>(const vec<double, M>&, const vec<double, M>&, const vec<double, M>&, const vec<double, M>&);
+    mat<double, 4, 4>(double);
+    mat<double, 4, 4>(double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double);
+    mat<double, 4, 4>(vec<double, M>, vec<double, M>, vec<double, M>, vec<double, M>);
     template<uint NN, uint MM>
-    mat<double, 4, 4>(const mat<double, NN, MM>);
+    mat<double, 4, 4>(mat<double, NN, MM>);
 
 };
 
@@ -8216,6 +8255,9 @@ template <typename genType, uint M, uint N, uint L>
 ::internal::mat<genType, M, L> operator*(const ::internal::mat<genType, M, N> &, const ::internal::mat<genType, N, L> &);
 template <typename genType, uint M, uint N>
 ::internal::vec<genType, M> operator*(const ::internal::mat<genType, M, N> &, const ::internal::vec<genType, N> &);
+
+template <typename genType, uint N>
+::internal::vec<genType, N> operator-(const ::internal::vec<genType, N> &);
 
 template <typename genType, uint N>
 ::internal::vec<genType, N> operator+(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);

@@ -14,15 +14,14 @@ struct vec<{{genType}}, {{dim}}> : std::array<{{genType}}, {{dim}}>{
     
     // constructor
     vec<{{genType}}, {{dim}}>();
-    vec<{{genType}}, {{dim}}>(const {{genType}}&);
+    vec<{{genType}}, {{dim}}>({{genType}});
 
-    template<typename T> requires(std::is_nothrow_convertible_v<T, {{genType}}>)
-    vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&);
-    template<typename T> requires(!std::is_same_v<T, {{genType}}>)
-    explict vec<{{genType}}, {{dim}}>(const vec<T, {{dim}}>&);
-    template<typename T> requires(std::is_nothrow_convertible_v<{{genType}}, T> || std::is_nothrow_convertible_v<T, {{genType}}>)
-    vec<{{genType}}, {{dim}}>& operator=(const vec<T, {{dim}}>&);
-    vec<{{genType}}, {{dim}}>& operator=(const vec<{{genType}}, {{dim}}>&);
+    vec<{{genType}}, {{dim}}>(const vec<{{genType}}, {{dim}}>&);
+    template<typename T>
+    vec<{{genType}}, {{dim}}>(vec<T, {{dim}}>);
+    vec<{{genType}}, {{dim}}>& operator=(vec<{{genType}}, {{dim}}>);
+    template<typename T>
+    vec<{{genType}}, {{dim}}>& operator=(vec<T, {{dim}}>);
 {{{constructors}}}
 };
 '''
@@ -50,16 +49,19 @@ def make_divide():
                     l += [k]
                 if (s >= 2) and (s <= 4) and len(l)>1:
                     divide[s].add(tuple(l))
+    divide[2].add((1, 1))
+    divide[3].add((1, 1, 1))
+    divide[4].add((1, 1, 1, 1))
     return divide
 
 divide = make_divide()
 
 def make_constructor(dim, genType):
     return "\n".join([
-        pystache.render("    vec<{{genType}}, {{dim}}>({{{decl}}});", {
+        pystache.render("    template<typename T>\n    vec<{{genType}}, {{dim}}>({{{decl}}});", {
             "dim":dim,
             "genType":genType,
-            "decl": ", ".join([f"const {genType if item==1 else f'vec<{genType}, {item}>'}&" for item in l])
+            "decl": ", ".join([f"{'T' if item==1 else f'vec<T, {item}>'}" for item in l])
         })
         for l in divide[dim]
     ])
@@ -84,7 +86,7 @@ class vec:
                 {"component": component}
                 for component in ("xyzw"[:dim]+"rgba"[:dim]+"stuv"[:dim])
             ],
-            "constructors": make_constructor(dim, genType) + (f"\nvec<{genType}, {dim}>({', '.join(['const double&'] * dim)});\n" if genType == "float" else "")
+            "constructors": make_constructor(dim, genType)
         }
         if not lite:
             filler["swizzle"] = [

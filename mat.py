@@ -5,7 +5,7 @@ template_mat = '''
 struct mat<{{genType}}, {{N}}, {{M}}> : std::array<vec<{{genType}}, {{M}}>, {{N}}>{
     // constructor
     mat<{{genType}}, {{N}}, {{M}}>();
-    mat<{{genType}}, {{N}}, {{M}}>(const {{genType}}&);
+    mat<{{genType}}, {{N}}, {{M}}>({{genType}});
 {{{constructors}}}
 {{{submat}}}
 };
@@ -20,8 +20,8 @@ class mat:
             "N":N,
             "M":M,
             "constructors": f'''\
-    mat<{genType}, {N}, {M}>({", ".join([f"const {genType}&"]*(N*M))});
-    mat<{genType}, {N}, {M}>({", ".join([f"const vec<{genType}, M>&"]*N)});
+    mat<{genType}, {N}, {M}>({", ".join([f"{genType}"]*(N*M))});
+    mat<{genType}, {N}, {M}>({", ".join([f"vec<{genType}, M>"]*N)});
     template<uint NN, uint MM>
-    mat<{genType}, {N}, {M}>(const mat<{genType}, NN, MM>);''',
+    mat<{genType}, {N}, {M}>(mat<{genType}, NN, MM>);''',
         })}

@@ -239,6 +239,9 @@ template <typename genType, uint M, uint N>
 ::internal::vec<genType, M> operator*(const ::internal::mat<genType, M, N> &, const ::internal::vec<genType, N> &);
 
 template <typename genType, uint N>
+::internal::vec<genType, N> operator-(const ::internal::vec<genType, N> &);
+
+template <typename genType, uint N>
 ::internal::vec<genType, N> operator+(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
 template <typename genType, uint N>
 ::internal::vec<genType, N> operator-(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
