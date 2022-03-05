@@ -8291,6 +8291,28 @@ template <typename genType, uint N>
 ::internal::vec<genType, N> operator/(const genType &, const ::internal::vec<genType, N> &);
 template <typename genType, uint N>
 ::internal::vec<genType, N> operator/(const ::internal::vec<genType, N> &, const genType &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator+=(const ::internal::vec<genType, N> &, const genType &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator-=(const ::internal::vec<genType, N> &, const genType &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator*=(const ::internal::vec<genType, N> &, const genType &);
+template <typename genType, uint N>
+::internal::vec<genType, N> operator/=(const ::internal::vec<genType, N> &, const genType &);
+
+template <uint N>
+::internal::vec<uint, N> operator>>(const ::internal::vec<uint, N> &, const int &);
+template <uint N>
+::internal::vec<uint, N> operator<<(const ::internal::vec<uint, N> &, const int &);
+template <uint N>
+::internal::vec<int, N> operator>>(const ::internal::vec<int, N> &, const int &);
+template <uint N>
+::internal::vec<int, N> operator<<(const ::internal::vec<int, N> &, const int &);
+
+template <uint N>
+::internal::vec<uint, N> operator^(const ::internal::vec<uint, N> &, const ::internal::vec<uint, N> &);
+template <uint N>
+::internal::vec<int, N> operator^(const ::internal::vec<int, N> &, const ::internal::vec<int, N> &);
 
 float floor(float);
 float fract(float);
@@ -8322,8 +8344,11 @@ float log2(float);
 float sqrt(float);
 float sign(float);
 float invsqrt(float);
+float inversesqrt(float);
 
 // clang-format off
+template<uint N> bool any(const ::internal::vec<bool, N> &);
+template<typename genType, uint N> ::internal::vec<bool, N> isnan(const ::internal::vec<genType, N> &);
 template<typename genType, uint N> ::internal::vec<genType, N> floor(const ::internal::vec<genType, N> &);
 template<typename genType, uint N> ::internal::vec<genType, N> fract(const ::internal::vec<genType, N> &);
 template<typename genType, uint N> ::internal::vec<genType, N> mod(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
@@ -8332,6 +8357,7 @@ template<typename genType, uint N> ::internal::vec<genType, N> min(const ::inter
 template<typename genType, uint N> ::internal::vec<genType, N> max(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
 template<typename genType, uint N> ::internal::vec<genType, N> step(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
 template<typename genType, uint N> ::internal::vec<genType, N> mix(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
+template<typename genType, uint N> ::internal::vec<genType, N> mix(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &, const genType &);
 template<typename genType, uint N> ::internal::vec<genType, N> clamp(const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &, const ::internal::vec<genType, N> &);
 
 template<typename genType, uint N> ::internal::vec<genType, N> sin(const ::internal::vec<genType, N>&);
@@ -8354,6 +8380,7 @@ template<typename genType, uint N> ::internal::vec<genType, N> log2(const ::inte
 template<typename genType, uint N> ::internal::vec<genType, N> sqrt(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> ::internal::vec<genType, N> sign(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> ::internal::vec<float, N> invsqrt(const ::internal::vec<genType, N>&);
+template<typename genType, uint N> ::internal::vec<float, N> inversesqrt(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> ::internal::vec<float, N> normalize(const ::internal::vec<genType, N>&);
 
 template<uint N> ::internal::vec<float, N> intBitsToFloat(const ::internal::vec<int, N>&);
