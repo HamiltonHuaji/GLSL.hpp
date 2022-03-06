@@ -8228,7 +8228,7 @@ extern mat3 gl_NormalMatrix;
 extern mat4 gl_ModelViewMatrix, gl_ProjectionMatrix;
 extern mat4 gl_TextureMatrix[];
 extern bool gl_FrontFacing;
-extern vec2 gl_FragCoord;
+extern vec4 gl_FragCoord;
 struct gl_PerVertex {
     vec4   gl_Position;
     float  gl_PointSize;
@@ -8391,6 +8391,13 @@ template<uint N> ::internal::vec<uint, N> floatBitsToUint(const ::internal::vec<
 template<typename genType, uint N> float length(const ::internal::vec<genType, N>&);
 template<typename genType, uint N> float dot(const ::internal::vec<genType, N>&, const ::internal::vec<genType, N>&);
 template<typename genType, uint N> float distance(const ::internal::vec<genType, N>&, const ::internal::vec<genType, N>&);
+
+template<typename genType> genType dFdx(const genType &);
+template<typename genType> genType dFdy(const genType &);
+template<typename genType> genType dFdxCoarse(const genType &);
+template<typename genType> genType dFdyCoarse(const genType &);
+template<typename genType> genType dFdxFine(const genType &);
+template<typename genType> genType dFdyFine(const genType &);
 // clang-format off
 
 vec3 cross(vec3, vec3);
